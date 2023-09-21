@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
-{
+namespace Domain.Interfaces;
     public class IGenericRepository
     {
         
     }
-}
