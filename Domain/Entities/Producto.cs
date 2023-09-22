@@ -16,4 +16,5 @@ namespace Domain.Entities;
         public ICollection<ProductoCompra> ProductoCompras { get; set; }
         public ICollection<ProductoVenta> ProductoVentas { get; set; }
         public ICollection<ProductoReceta> ProductoRecetas { get; set; }
+        public ICollection<Receta> Recetas = new HashSet<Receta>();
     }
