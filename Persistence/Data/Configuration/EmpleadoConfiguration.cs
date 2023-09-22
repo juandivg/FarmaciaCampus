@@ -14,7 +14,11 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
         builder.ToTable("Empleado");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         builder.Property(p=>p.NombreEmpleado).HasColumnName("NombreEmpleado").HasMaxLength(250).IsRequired();
+=======
+        builder.Property(p => p.NombreEmpleado).HasColumnName("NombreEmpleado").HasMaxLength(255).IsRequired();
+>>>>>>> cffff698b3603366b584d867a9162827808fd531
 =======
         builder.Property(p => p.NombreEmpleado).HasColumnName("NombreEmpleado").HasMaxLength(255).IsRequired();
 >>>>>>> cffff698b3603366b584d867a9162827808fd531
