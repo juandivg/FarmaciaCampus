@@ -12,6 +12,8 @@ namespace Domain.Entities
         public Paciente Paciente { get; set; }
         public int IdEmpleadofk { get; set; }
         public Empleado Empleado { get; set; }
+        public int IdRecetafk { get; set; }
+        public Receta Receta { get; set; }
         public ICollection<ProductoVenta> ProductoVentas { get; set; }
     }
 }

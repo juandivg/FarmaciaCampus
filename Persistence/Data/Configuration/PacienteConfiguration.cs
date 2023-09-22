@@ -13,6 +13,12 @@ namespace Persistence.Data.Configuration
         public void Configure(EntityTypeBuilder<Paciente> builder)
         {
             builder.ToTable("Paciente");
+            builder.Property(p=>p.NombrePaciente).HasColumnName("NombrePaciente").HasMaxLength(250).IsRequired();
+            builder.Property(p=>p.cedula).HasColumnName("CedulaPaciente").HasMaxLength(250).IsRequired();
+            builder.Property(p=>p.Correo).HasColumnName("CorreoPais").HasMaxLength(250).IsRequired();
+            builder.HasOne(p=>p.DireccionPaciente).WithMany(p=>p.pacientes).HasForeignKey(p=>p.IdDireccionPac);
+
+
         }
     }
 }

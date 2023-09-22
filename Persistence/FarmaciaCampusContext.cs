@@ -17,5 +17,9 @@ public class FarmaciaCampusContext : DbContext
         .HasOne<Usuario>(p=>p.Usuario)
         .WithOne(ad => ad.Empleado)
         .HasForeignKey<Usuario>(ad => ad.IdEmpleadofk);
+        modelBuilder.Entity<Receta>()
+        .HasOne<Venta>(p=>p.Venta)
+        .WithOne(p=>p.Receta)
+        .HasForeignKey<Venta>(p=>p.IdRecetafk);
     }
 }
