@@ -13,6 +13,7 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
     {
         builder.ToTable("Empleado");
 
+        builder.Property(p => p.NombreEmpleado).HasColumnName("NombreEmpleado").HasMaxLength(255).IsRequired();
         builder.Property(p => p.Cedula).HasColumnName("Cedula").HasMaxLength(20).IsRequired();
         builder.Property(p => p.Correo).HasColumnName("Email").HasMaxLength(255).IsRequired();
         builder.HasOne(p => p.Cargo).WithMany(p => p.Empleados).HasForeignKey(p => p.IdCargofk);
