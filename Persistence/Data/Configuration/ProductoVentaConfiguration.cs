@@ -12,6 +12,7 @@ namespace Persistence.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<ProductoVenta> builder)
         {
+            builder.ToTable("productoVenta");
             builder.HasOne(p=>p.Producto).WithMany(p=>p.ProductoVentas).HasForeignKey(p=>p.IdProductofk);
             builder.HasOne(p=>p.Venta).WithMany(p=>p.ProductoVentas).HasForeignKey(p=>p.IdVentafk);
             builder.Property(p=>p.Cantidad).HasColumnName("Cantidad").HasColumnType("int").IsRequired();

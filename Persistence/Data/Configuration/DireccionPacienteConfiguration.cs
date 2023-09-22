@@ -12,7 +12,7 @@ namespace Persistence.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<DireccionPaciente> builder)
         {
-                        builder.ToTable("DireccionPaciente");
+            builder.ToTable("DireccionPaciente");
             builder.Property(p=>p.Calle).HasColumnName("CallePaciente").HasMaxLength(250).IsRequired();
             builder.Property(p=>p.Carrera).HasColumnName("CarreraPaciente").HasMaxLength(250).IsRequired();
             builder.Property(p=>p.Detalles).HasColumnName("DetallesPaciente").HasMaxLength(250).IsRequired();
