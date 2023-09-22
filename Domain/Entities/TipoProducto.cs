@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 namespace Domain.Entities;
     public class TipoProducto : BaseEntity
     {
-        public string TipoProducto { get; set; }
+        public string Tipo { get; set; }
         public ICollection<Producto> Productos { get; set; }
     }
