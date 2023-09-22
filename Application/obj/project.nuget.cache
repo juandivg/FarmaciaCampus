@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "OdzKUApH9lnlfaiMyEsCRBkCMb3+y+yj2ofbnckMdbNsYm0bzRQOFTZwBs1T9K28cE3EI4VKtAX5g+FsXqwixg==",
+=======
+  "dgSpecHash": "xQhpcyJphZKOsi/GvzV89O54Az0HJCDvD9FQ5yy0Gx8TcCrQcFi706ZlYfJ9uwEFBOXDdafwskfL6Z+yyrJblw==",
+>>>>>>> 07d5cf420c7f2ac51c14506526d76435370a17a9
   "success": true,
   "projectFilePath": "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Application\\Application.csproj",
   "expectedPackageFiles": [

@@ -5278,8 +5278,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj"
+            "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj"
             }
           }
         }
