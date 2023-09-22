@@ -13,6 +13,6 @@ public class RolConfiguration : IEntityTypeConfiguration<Rol>
     {
         builder.ToTable("rol");
 
-        builder.Property(p => p.NombreRol).HasColumnType("NombreRol").HasMaxLength(100).IsRequired();
+        builder.Property(p => p.NombreRol).HasColumnName("NombreRol").HasMaxLength(100).IsRequired();
     }
 }

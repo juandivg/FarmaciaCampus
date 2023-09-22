@@ -12,7 +12,8 @@ namespace Persistence.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<TelefonoEmpleado> builder)
         {
-             builder.ToTable("TelefonoPaciente");
+             builder.ToTable("TelefonoEmpleado");
+
              builder.Property(p=>p.Numero).HasColumnName("Numero").HasMaxLength(250).IsRequired();
              builder.HasOne(p=>p.TipoTelefono).WithMany(p=>p.TelefonoEmpleados).HasForeignKey(p=>p.IdTipoTelefonofk);
              builder.HasOne(p=>p.Empleado).WithMany(p=>p.TelefonoEmpleados).HasForeignKey(p=>p.IdEmpleadofk);
