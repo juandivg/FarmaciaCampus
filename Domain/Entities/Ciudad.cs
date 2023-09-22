@@ -10,6 +10,6 @@ namespace Domain.Entities
         public string Nombre { get; set; }
         public int IdDepartamentofk { get; set; }
         public Departamento Departamento { get; set; } 
-        public ICollection<Barrio> Barrio { get; set; }       
+        public ICollection<Barrio> Barrios { get; set; }       
     }
 }
