@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bybWkMQnPg9IAsyliyLjB0OAfz0tyH5jnq2ioJr/wkyf5LJjP4Q4AcE7xzj4DBJfhqOwpy/YIOoxz0JPr/BLOQ==",
+  "dgSpecHash": "ZUlfgMHSIRWxCXVsnDkSfK+0GarJUkc74/E9QSGGLGXAuJlhI1SHOiYKEfrDBl5YrSi94FjuXuKaZodx2gVmcg==",
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -127,12 +127,5 @@
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

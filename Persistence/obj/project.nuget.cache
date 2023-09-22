@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PSoBQh0X6yi6FY7na2EOjWaUq+iVlYo+Gd4qFM8pEKNjw34eijirMlXbevfAEJp08/wxanPkc00HhzxovrKHwA==",
+  "dgSpecHash": "XM967gez6X0voyhmI9hnF7yKqD3De++3k0sTdF3Vy5h+HnX8cij/KnH3tmCiHKr3gCt/9q398AKkmdC3BY/IMQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
@@ -97,12 +97,5 @@
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
