@@ -2,6 +2,10 @@
     "conventionalCommits.scopes": [
         "Entities",
         "Entities",
+<<<<<<< HEAD
+        "Cache"
+=======
         "Configuraciones"
+>>>>>>> JuanDiego
     ]
 }

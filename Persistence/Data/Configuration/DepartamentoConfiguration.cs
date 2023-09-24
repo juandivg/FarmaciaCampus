@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Data.Configuration
 {
-    public class DeparatamentoConfiguration : IEntityTypeConfiguration<Departamento>
+    public class DepartamentoConfiguration : IEntityTypeConfiguration<Departamento>
     {
         public void Configure(EntityTypeBuilder<Departamento> builder)
         {
