@@ -1,14 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "dgSpecHash": "ZUlfgMHSIRWxCXVsnDkSfK+0GarJUkc74/E9QSGGLGXAuJlhI1SHOiYKEfrDBl5YrSi94FjuXuKaZodx2gVmcg==",
-=======
-  "dgSpecHash": "kubUNEBAkm6mPT5z9aqCVeUFA5REXzslZUeLU958cOjaoCwYp6zQv4G94z3BNn3D0nV0Cto+bLrOnDC70Xq4ww==",
->>>>>>> cffff698b3603366b584d867a9162827808fd531
-=======
-  "dgSpecHash": "l0kOvsq70QHwh05vpYrElWQZ2i/lLbhU6Gf7jYARZ0n3VmAdX6pxkaTEpQkJBW3V9scn8gzaJ1Bjz6sYnCeIoA==",
->>>>>>> JuanDiego
+  "dgSpecHash": "cZjMugXxm2gpCL2EiZib4S1Pqmrb9m1RzvHLW0tcZAqjq9lQnAPkvhbhiD8jLuPqLz+/ZGqla/Tnx/tyJ9dyEg==",
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\API\\API.csproj",
   "expectedPackageFiles": [

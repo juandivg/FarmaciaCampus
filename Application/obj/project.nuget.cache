@@ -1,18 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "dgSpecHash": "YVfTYe2tBJo0GNtSu54LZ4/ApkiOHpBc/6jiQzS8UY83fR583MwQgQlrd4HvvzDG9+I7fYfmpRsjZcUQ2o0p4g==",
-=======
-<<<<<<< HEAD
-  "dgSpecHash": "OdzKUApH9lnlfaiMyEsCRBkCMb3+y+yj2ofbnckMdbNsYm0bzRQOFTZwBs1T9K28cE3EI4VKtAX5g+FsXqwixg==",
-=======
-  "dgSpecHash": "xQhpcyJphZKOsi/GvzV89O54Az0HJCDvD9FQ5yy0Gx8TcCrQcFi706ZlYfJ9uwEFBOXDdafwskfL6Z+yyrJblw==",
->>>>>>> 07d5cf420c7f2ac51c14506526d76435370a17a9
->>>>>>> cffff698b3603366b584d867a9162827808fd531
-=======
-  "dgSpecHash": "ZJpZC1GHRtuwj+o33bm6tBdlGDusrvC2rhEa3al+pK3s4EKBkqrJDTXDbWValims8U4ZZihFSieCdkvm+MQZBw==",
->>>>>>> JuanDiego
+  "dgSpecHash": "avR24C3qaLkZDyZPiJjsRjSSKeviEsgkwOTj5s1ahwXpj5pM4efQV2BKUgrkOHw6jGvnnmlpH4+p1SU/H8Yrmw==",
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\Application.csproj",
   "expectedPackageFiles": [
@@ -109,12 +97,5 @@
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
