@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZJpZC1GHRtuwj+o33bm6tBdlGDusrvC2rhEa3al+pK3s4EKBkqrJDTXDbWValims8U4ZZihFSieCdkvm+MQZBw==",
+  "dgSpecHash": "KLYr1nm7LBLrn+eRAgYIiSpxh8wdBpQLjhFPv/73JDDK3EImafuhbSOrsdd4jGiJ+/0vi54XeKZXkAjfoz5FZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\Application.csproj",
+  "projectFilePath": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\57301\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
     "C:\\Users\\57301\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
@@ -97,12 +97,5 @@
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\57301\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
