@@ -28,9 +28,13 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-[Oo]bj/
+Domain/obj/
+API/obj/
+Persistence/obj/
+Application/obj/
 [Ll]og/
 [Ll]ogs/
+
 Persistence/Data/Migrations/
 
 # Visual Studio 2015/2017 cache/options directory
