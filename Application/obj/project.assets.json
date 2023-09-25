@@ -5297,11 +5297,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj"
+            "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj"
             },
-            "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj": {
-              "projectPath": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj"
+            "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj": {
+              "projectPath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj"
             }
           }
         }

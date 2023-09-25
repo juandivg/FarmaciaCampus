@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lUM5SXqJiH0r3+q3i1OrYKYQTPqayTyoGFva0kwONWVlRO5NlxuXl732F3dP6x5g0fVewWfXQswve8uHz3rv/g==",
+  "dgSpecHash": "avR24C3qaLkZDyZPiJjsRjSSKeviEsgkwOTj5s1ahwXpj5pM4efQV2BKUgrkOHw6jGvnnmlpH4+p1SU/H8Yrmw==",
+
+
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Application\\Application.csproj",
   "expectedPackageFiles": [

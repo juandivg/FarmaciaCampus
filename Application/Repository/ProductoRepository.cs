@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Repository
@@ -14,6 +15,13 @@ namespace Application.Repository
         public ProductoRepository(FarmaciaCampusContext context) : base(context)
         {
             _context=context;
+        }
+        public override async Task<IEnumerable<Producto>> GetAllAsync()
+        {
+            return await _context.Productos
+                .Include(p=>p.ProveedorProductos)
+                .ThenInclude(p=>p.Proveedor)
+                .ToListAsync();
         }
     }
 }
