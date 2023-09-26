@@ -10,6 +10,6 @@ namespace Domain.Views
     {
         public int Id { get; set; }
         public string NombreProducto { get; set; }
-        public ICollection<Proveedor> Proveedores {get; set;}
+        public ICollection<Proveedor> Proveedores { get; set; }
     }
 }
