@@ -1,14 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
-<<<<<<< HEAD
   "dgSpecHash": "XM967gez6X0voyhmI9hnF7yKqD3De++3k0sTdF3Vy5h+HnX8cij/KnH3tmCiHKr3gCt/9q398AKkmdC3BY/IMQ==",
-=======
-  "dgSpecHash": "W3eqtE357saoBXrWJFIPBgw7hJZjWkxFJfp50e8VeiyQEEY6GYx8/+fwGTWpp0sEa+GM5Vl+1LBkqigPgCFVzA==",
->>>>>>> cffff698b3603366b584d867a9162827808fd531
-=======
-  "dgSpecHash": "PSoBQh0X6yi6FY7na2EOjWaUq+iVlYo+Gd4qFM8pEKNjw34eijirMlXbevfAEJp08/wxanPkc00HhzxovrKHwA==",
->>>>>>> JuanDiego
   "success": true,
   "projectFilePath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [

@@ -1,8 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj": {}
   },
   "projects": {
@@ -14,28 +12,6 @@
         "projectPath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\57301\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\obj\\",
-=======
-    "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj": {}
-=======
-    "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj": {}
->>>>>>> JuanDiego
-  },
-  "projects": {
-    "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj",
-        "projectName": "Domain",
-<<<<<<< HEAD
-        "projectPath": "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\APT01-68\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\APT01-68\\Documents\\ProyectosNet\\FarmaciaCampus\\FarmaciaCampus\\Domain\\obj\\",
->>>>>>> cffff698b3603366b584d867a9162827808fd531
-=======
-        "projectPath": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\57301\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\57301\\Desktop\\JuanDiego\\ProyectosCsharp\\FarmaciaCampus\\Domain\\obj\\",
->>>>>>> JuanDiego
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\57301\\AppData\\Roaming\\NuGet\\NuGet.Config"
