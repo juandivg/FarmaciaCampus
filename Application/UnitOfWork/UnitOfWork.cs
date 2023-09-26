@@ -17,6 +17,7 @@ namespace Application.UnitOfWork
         private IProductoRepository _productos;
         private IUsuarioRepository _usuarios;
         private IRolRepository _roles;
+        private ICompraRepository _compras;
         public UnitOfWork(FarmaciaCampusContext context)
         {
             _context= context;
@@ -29,6 +30,16 @@ namespace Application.UnitOfWork
                     _empleados=new EmpleadoRepository(_context);
                 }
                 return _empleados;
+            }
+        }
+        public ICompraRepository Compras
+        {
+            get{
+                if(_compras==null)
+                {
+                    _compras=new CompraRepository(_context);
+                }
+                return _compras;
             }
         }
         public IProveedorRepository Proveedores

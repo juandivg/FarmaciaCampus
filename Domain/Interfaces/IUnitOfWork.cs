@@ -12,4 +12,5 @@ namespace Domain.Interfaces;
         IProductoRepository Productos {get;}
         IUsuarioRepository Usuarios    {get;}
         IRolRepository Roles {get;}
+        ICompraRepository Compras {get;}
      }
