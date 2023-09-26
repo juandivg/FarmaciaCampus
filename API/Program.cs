@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 using System.Reflection;
 using API.Extensions;
->>>>>>> f529af27cc8b9c26733858f36a6389fcc7e168dd
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -24,7 +21,7 @@ builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddDbContext<FarmaciaCampusContext>(options => 
+builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
 {
     string? connectionString = builder.Configuration.GetConnectionString("ConexMysql");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
