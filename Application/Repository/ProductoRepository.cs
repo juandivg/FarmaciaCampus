@@ -15,7 +15,7 @@ namespace Application.Repository
         private readonly FarmaciaCampusContext _context;
         public ProductoRepository(FarmaciaCampusContext context) : base(context)
         {
-            _context=context;
+            _context = context;
         }
         // public override async Task<IEnumerable<Producto>> GetAllAsync()
         // {
@@ -24,31 +24,36 @@ namespace Application.Repository
         //         .ThenInclude(p=>p.Proveedor)
         //         .ToListAsync();
         // }
-        public async Task<IEnumerable<Producto>> GetProductosStock50()
+        public async Task<IEnumerable<Producto>> GetProductosStock50(int cantidad)
         {
             return await _context.Productos
-            .Where(p => p.Stock < 50)
+            .Where(p => p.Stock < cantidad)
             .ToListAsync();
-
         }
 
         public async Task<IEnumerable<ProveedoresxProducto>> GetProveedoresxProductos()
         {
-            return await _context.Productos.Join(
-                _context.ProveedorProductos,
-                producto=>producto.Id,
-                pp=>pp.IdProductofk,
-                (producto,pp)=>new {producto,pp}
-            ).Join(_context.Proveedores,
-            j=>j.pp.IdProveedorfk,
-            k=>k.Id,
-            (j,k)=>new ProveedoresxProducto
+            return await _context.Productos
+            .GroupJoin(
+            _context.ProveedorProductos,
+            producto => producto.Id,
+            pp => pp.IdProductofk,
+            (producto, pp) => new ProveedoresxProducto
             {
-                Id=j.producto.Id,
-                NombreProducto=j.producto.NombreProducto,
-                Proveedores=
-            }
-            ).ToListAsync();
+                Id = producto.Id,
+                NombreProducto = producto.NombreProducto,
+                Proveedores = pp.Join(
+                    _context.Proveedores,
+                    pp => pp.IdProveedorfk,
+                    proveedor => proveedor.Id,
+                    (pp, proveedor) => new Proveedor
+                    {
+                        Id = proveedor.Id,
+                        NombreProveedor = proveedor.NombreProveedor,
+                        Correo = proveedor.Correo
+                    }
+                ).ToList()
+            }).ToListAsync();
         }
     }
 }

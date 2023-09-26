@@ -15,9 +15,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 
-builder.Services.AddDbContext<FarmaciaCampusContext>(options => 
+builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
 {
-    string? connectionString = builder.Configuration.GetConnectionString("ConexMysql");
+    string connectionString = builder.Configuration.GetConnectionString("ConexMysql");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
