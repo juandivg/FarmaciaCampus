@@ -26,9 +26,9 @@ namespace API.Profiles
                 Correo = p.Correo
             }))).ReverseMap();
             CreateMap<Proveedor, ProveedorDto>().ReverseMap();
-            
-            CreateMap<Receta,RecetaDto>().ReverseMap();
-            CreateMap<VentasTotalesxProducto,VentasTotalesxProductoDto>().ReverseMap();
+
+            CreateMap<Receta, RecetaDto>().ReverseMap();
+            CreateMap<VentasTotalesxProducto, VentasTotalesxProductoDto>().ReverseMap();
 
             // CreateMap<Producto,ProductoDto>().ForMember(o=>o.Proveedores,o=>o.MapFrom(o=>o.ProveedorProductos.Select(o=>o.Proveedor)));
             // CreateMap<Proveedor,ProveedorDto>().ReverseMap();
@@ -40,7 +40,7 @@ namespace API.Profiles
             // //.ForMember(d=>d.Proveedores,o=>o.MapFrom(src=>src.productoCompras.Select(p=>p.Producto.ProveedorProductos.Select(p=>p.Proveedor))));
             // .ForMember(d=>d.Productos,o=>o.MapFrom(src=>src.productoCompras.Select(p=>p.Producto)));
 
-
+            CreateMap<ProductosCaducadosxFecha, ProductosCaducadosxFechaDto>().ReverseMap();
         }
     }
 }
