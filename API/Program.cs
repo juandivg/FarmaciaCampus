@@ -21,6 +21,12 @@ builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
+builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
+{
+    string? connectionString = builder.Configuration.GetConnectionString("ConexMysql");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

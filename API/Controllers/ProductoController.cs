@@ -41,11 +41,19 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosxProveedor/{nombre}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ProductoDto>>> Get3(string nombre)
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get3(string nombre)
     {
         var productos = await _unitOfWork.Productos.GetProductosxProveedor(nombre);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 
+    [HttpGet("GetProductosCaducadosAntes/{fechaVencimiento}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductosCaducadosxFechaDto>>> Get4(DateTime fechaVencimiento)
+    {
+        var productos = await _unitOfWork.Productos.GetProductosCaducadosAntes(fechaVencimiento);
+        return _mapper.Map<List<ProductosCaducadosxFechaDto>>(productos);
+    }
 
 }

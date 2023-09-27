@@ -20,6 +20,7 @@ namespace Application.Repository
         public async Task<IEnumerable<Proveedor>> GetProveedoresSinCompras()
         {
 
+
             DateTime haceUnAnio = DateTime.Now.AddYears(-1);
             return await _context.Proveedores
             .Join(_context.ProveedorProductos, prov => prov.Id, pp => pp.IdProveedorfk, (prov, pp) => new { Proveedor = prov, ProveedorProducto = pp })
@@ -35,5 +36,7 @@ namespace Application.Repository
             .Where(x => x.UltimaCompra < haceUnAnio)
             .Select(x => x.Proveedor).ToListAsync();
         }
+
+
     }
 }
