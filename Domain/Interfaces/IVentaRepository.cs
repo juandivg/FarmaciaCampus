@@ -9,4 +9,5 @@ namespace Domain.Interfaces;
     public interface IVentaRepository : IGenericRepository<Venta>
     {
         Task<IEnumerable<VentasTotalesxProducto>> GetVentasxMedicamento(string medicamento);
+        Task <TotalDineroVentas> GetTotalDineroVentas();
     }

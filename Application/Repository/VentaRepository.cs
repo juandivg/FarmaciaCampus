@@ -6,6 +6,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Views;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Persistence;
 
 namespace Application.Repository;
@@ -15,6 +16,20 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
     public VentaRepository(FarmaciaCampusContext context) : base(context)
     {
             _context = context;
+    }
+
+    public async Task<TotalDineroVentas> GetTotalDineroVentas()
+    {
+        decimal TotalV = await(
+            from pro in _context.Productos
+            join pv in _context.ProductoVentas on pro.Id equals pv.IdProductofk
+            select pro.PrecioV).SumAsync();
+        return new TotalDineroVentas
+        {
+            Total = TotalV
+        };
+
+        
     }
 
     public async Task<IEnumerable<VentasTotalesxProducto>> GetVentasxMedicamento(string medicamento)

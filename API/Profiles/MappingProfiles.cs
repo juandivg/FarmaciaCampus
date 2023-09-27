@@ -29,6 +29,8 @@ namespace API.Profiles
 
             CreateMap<Receta, RecetaDto>().ReverseMap();
             CreateMap<VentasTotalesxProducto, VentasTotalesxProductoDto>().ReverseMap();
+             CreateMap<CantidadVentasxProveedor, CantidadVentasxProveedorDto>().ReverseMap();
+             CreateMap<TotalDineroVentas, TotalDineroVentasDto>().ReverseMap();
 
             // CreateMap<Producto,ProductoDto>().ForMember(o=>o.Proveedores,o=>o.MapFrom(o=>o.ProveedorProductos.Select(o=>o.Proveedor)));
             // CreateMap<Proveedor,ProveedorDto>().ReverseMap();

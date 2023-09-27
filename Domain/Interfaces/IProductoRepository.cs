@@ -13,5 +13,7 @@ public interface IProductoRepository : IGenericRepository<Producto>
     Task<IEnumerable<Producto>> GetProductosxProveedor(string proveedor);
 
     Task<IEnumerable<ProductosCaducadosxFecha>> GetProductosCaducadosAntes(DateTime fechaVencimiento);
+    Task<IEnumerable<Producto>> GetProductosSinVender();
+    Task<IEnumerable<Producto>> GetProductosMasCaros();
 
 }

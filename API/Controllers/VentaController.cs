@@ -25,4 +25,12 @@ namespace API.Controllers;
         var productos = await _unitOfWork.Ventas.GetVentasxMedicamento(medicamento);
         return _mapper.Map<List<VentasTotalesxProductoDto>>(productos);
     }
+    [HttpGet("GetTotalDineroVentas")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TotalDineroVentasDto>> Get2()
+    {
+        var total = await _unitOfWork.Ventas.GetTotalDineroVentas();
+        return _mapper.Map<TotalDineroVentasDto>(total);
+    }
     }

@@ -135,6 +135,39 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
         ).ToListAsync();
     }
 
+    public async Task<IEnumerable<Producto>> GetProductosSinVender()
+    {
+    return await( 
+    from p in _context.Productos
+    join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
+    from pv in pvGroup.DefaultIfEmpty()
+    join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
+    from v in vGroup.DefaultIfEmpty()
+    where pv == null
+    select new Producto
+    {
+        Id=p.Id,
+        NombreProducto=p.NombreProducto,
+        Stock=p.Stock,
+        PrecioV=p.PrecioV,
+        IdTipoProductofk=p.IdTipoProductofk
+    }
+    ).ToListAsync();
+    }
 
+    public async Task<IEnumerable<Producto>> GetProductosMasCaros()
+    {
+        var maxPrecioCompra=_context.Productos.Max(p=>p.PrecioC);
+        return await(
+            _context.Productos.Where(p=>p.PrecioC==maxPrecioCompra)
+            .Select(p=>new Producto{
+                Id=p.Id,
+                NombreProducto=p.NombreProducto,
+                Stock=p.Stock,
+                PrecioV=p.PrecioV,
+                IdTipoProductofk=p.IdTipoProductofk
 
+            })
+        ).ToListAsync();
+    }
 }
