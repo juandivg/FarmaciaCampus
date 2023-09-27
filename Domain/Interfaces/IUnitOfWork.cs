@@ -13,4 +13,6 @@ namespace Domain.Interfaces;
         IUsuarioRepository Usuarios    {get;}
         IRolRepository Roles {get;}
         ICompraRepository Compras {get;}
+        IRecetaRepository Recetas {get;}
+        IVentaRepository Ventas {get;}
      }
