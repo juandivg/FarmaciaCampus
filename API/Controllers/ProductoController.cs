@@ -55,5 +55,21 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetProductosCaducadosAntes(fechaVencimiento);
         return _mapper.Map<List<ProductosCaducadosxFechaDto>>(productos);
     }
+    [HttpGet("GetProductosSinVender")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get5()
+    {
+        var productos = await _unitOfWork.Productos.GetProductosSinVender();
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
+    [HttpGet("GetProductosMasCaros")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get6()
+    {
+        var productos = await _unitOfWork.Productos.GetProductosMasCaros();
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
 
 }

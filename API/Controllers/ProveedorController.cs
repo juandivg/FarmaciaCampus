@@ -25,4 +25,13 @@ public class ProveedorController : BaseApiController
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresSinCompras();
         return _mapper.Map<List<ProveedorDto>>(proveedores);
     }
+    [HttpGet("GetCatidadVentasxProveedors")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<CantidadVentasxProveedorDto>>> Get2()
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetCantidadVentasxProveedors();
+        return _mapper.Map<List<CantidadVentasxProveedorDto>>(proveedores);
+    }
 }
+

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Repository
-{
+namespace Application.Repository;
     public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepository
 
     {
@@ -17,6 +17,26 @@ namespace Application.Repository
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<CantidadVentasxProveedor>> GetCantidadVentasxProveedors()
+        {
+            return await(
+                from prov in _context.Proveedores
+                join pp in _context.ProveedorProductos on prov.Id equals pp.IdProveedorfk
+                join pro in _context.Productos on pp.IdProductofk equals pro.Id
+                join pv in _context.ProductoVentas on pro.Id equals pv.IdProductofk
+                join ven in _context.Ventas on pv.IdVentafk equals ven.Id
+                group pv by new {prov.NombreProveedor} into grp
+                select new CantidadVentasxProveedor
+                {
+                    NombreProveedor=grp.Key.NombreProveedor,
+                    Cantidad=grp.Sum(pv=>pv.Cantidad)
+                }
+                            ).ToListAsync();
+        }
+            
+        
+
         public async Task<IEnumerable<Proveedor>> GetProveedoresSinCompras()
         {
 
@@ -36,7 +56,7 @@ namespace Application.Repository
             .Where(x => x.UltimaCompra < haceUnAnio)
             .Select(x => x.Proveedor).ToListAsync();
         }
+        
 
 
     }
-}
