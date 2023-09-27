@@ -15,4 +15,5 @@ namespace Domain.Interfaces;
         ICompraRepository Compras {get;}
         IRecetaRepository Recetas {get;}
         IVentaRepository Ventas {get;}
+
      }

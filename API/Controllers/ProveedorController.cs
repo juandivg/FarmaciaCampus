@@ -25,5 +25,4 @@ public class ProveedorController : BaseApiController
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresSinCompras();
         return _mapper.Map<List<ProveedorDto>>(proveedores);
     }
- 
 }

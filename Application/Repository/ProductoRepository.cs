@@ -28,6 +28,33 @@ namespace Application.Repository;
             return await _context.Productos
             .Where(p => p.Stock < cantidad)
             .ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<ProveedoresxProducto>> GetProveedoresxProductos()
+        {
+            return await _context.Productos
+            .GroupJoin(
+            _context.ProveedorProductos,
+            producto => producto.Id,
+            pp => pp.IdProductofk,
+            (producto, pp) => new ProveedoresxProducto
+            {
+                Id = producto.Id,
+                NombreProducto = producto.NombreProducto,
+                Proveedores = pp.Join(
+                    _context.Proveedores,
+                    pp => pp.IdProveedorfk,
+                    proveedor => proveedor.Id,
+                    (pp, proveedor) => new Proveedor
+                    {
+                        Id = proveedor.Id,
+                        NombreProveedor = proveedor.NombreProveedor,
+                        Correo = proveedor.Correo
+                    }
+                ).ToList()
+            }).ToListAsync();
+
         }
 
     public async Task<IEnumerable<Producto>> GetProductosxProveedor(string proveedor)

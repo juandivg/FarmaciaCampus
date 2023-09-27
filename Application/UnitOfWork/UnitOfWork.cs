@@ -20,6 +20,7 @@ namespace Application.UnitOfWork
         private ICompraRepository _compras;
         private IRecetaRepository _recetas;
         private IVentaRepository _ventas;
+
         public UnitOfWork(FarmaciaCampusContext context)
         {
             _context= context;
