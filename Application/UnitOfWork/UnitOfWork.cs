@@ -18,6 +18,9 @@ namespace Application.UnitOfWork
         private IUsuarioRepository _usuarios;
         private IRolRepository _roles;
         private ICompraRepository _compras;
+        private IRecetaRepository _recetas;
+        private IVentaRepository _ventas;
+
         public UnitOfWork(FarmaciaCampusContext context)
         {
             _context= context;
@@ -92,6 +95,27 @@ namespace Application.UnitOfWork
                 return _roles;
             }
         }
+        public IRecetaRepository Recetas
+        {
+            get{
+                if(_recetas==null)
+                {
+                    _recetas=new RecetaRepository(_context);
+                }
+                return _recetas;
+            }
+        }
+        public IVentaRepository Ventas
+        {
+            get{
+                if(_ventas==null)
+                {
+                    _ventas=new VentaRepository(_context);
+                }
+                return _ventas;
+            }
+        }
+    
         
     public async Task<int> SaveAsync()
     {
