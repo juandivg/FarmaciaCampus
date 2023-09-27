@@ -10,4 +10,6 @@ public interface IProductoRepository : IGenericRepository<Producto>
 {
     Task<IEnumerable<Producto>> GetProductosStock50(int cantidad);
     Task<IEnumerable<ProveedoresxProducto>> GetProveedoresxProductos();
+    Task<IEnumerable<Producto>> GetProductosxProveedor(string proveedor);
+
 }
