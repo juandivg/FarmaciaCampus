@@ -9,8 +9,7 @@ namespace Domain.Interfaces;
 public interface IProveedorRepository : IGenericRepository<Proveedor>
 {
     Task<IEnumerable<Proveedor>> GetProveedoresSinCompras();
-    Task<IEnumerable<CantidadVentasxProveedor>> GetCantidadVentasxProveedors(); ///
-
+    Task <IEnumerable<CantidadVentasxProveedor>> GetCantidadVentasxProveedors(); ///
     Task<IEnumerable<TotalProductosxProveedor>> GetTotalProductosxProveedor();
 
     Task<IEnumerable<Proveedor>> GetProveedoresSinVentas(DateTime fechaVenta);

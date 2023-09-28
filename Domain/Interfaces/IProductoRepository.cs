@@ -19,7 +19,4 @@ public interface IProductoRepository : IGenericRepository<Producto>
     Task<IEnumerable<PromedioProductosxVenta>> GetPromedioProductosxVentas();
     Task<IEnumerable<Producto>> GetProductosExpirados(int anio);
 
-    Task<TotalVentasxRango> GetMedicamentosEnRango(DateTime fechaInicio, DateTime fechaFinal);
-    Task<IEnumerable<Producto>> GetMedicamentosMenosVendidos(DateTime fechaInicio, DateTime fechaFinal);
-
 }

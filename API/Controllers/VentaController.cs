@@ -33,6 +33,7 @@ public class VentaController : BaseApiController
         var total = await _unitOfWork.Ventas.GetTotalDineroVentas();
         return _mapper.Map<TotalDineroVentasDto>(total);
     }
+    
 
     [HttpGet("GetCantidadVentasxEmpleado/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -33,6 +33,7 @@ public class ProveedorController : BaseApiController
         var proveedores = await _unitOfWork.Proveedores.GetCantidadVentasxProveedors();
         return _mapper.Map<List<CantidadVentasxProveedorDto>>(proveedores);
     }
+
     [HttpGet("GetTotalProductosxProveedor")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -58,5 +59,6 @@ public class ProveedorController : BaseApiController
         var proveedores = await _unitOfWork.Proveedores.GetGananciaTotalxProveedor(fechaInicio, fechaFinal);
         return _mapper.Map<List<GananciaTotalxProveedorDto>>(proveedores);
     }
+
 }
 
