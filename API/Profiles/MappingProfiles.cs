@@ -29,8 +29,8 @@ namespace API.Profiles
 
             CreateMap<Receta, RecetaDto>().ReverseMap();
             CreateMap<VentasTotalesxProducto, VentasTotalesxProductoDto>().ReverseMap();
-             CreateMap<CantidadVentasxProveedor, CantidadVentasxProveedorDto>().ReverseMap();
-             CreateMap<TotalDineroVentas, TotalDineroVentasDto>().ReverseMap();
+            CreateMap<CantidadVentasxProveedor, CantidadVentasxProveedorDto>().ReverseMap();
+            CreateMap<TotalDineroVentas, TotalDineroVentasDto>().ReverseMap();
 
             // CreateMap<Producto,ProductoDto>().ForMember(o=>o.Proveedores,o=>o.MapFrom(o=>o.ProveedorProductos.Select(o=>o.Proveedor)));
             // CreateMap<Proveedor,ProveedorDto>().ReverseMap();
@@ -43,6 +43,13 @@ namespace API.Profiles
             // .ForMember(d=>d.Productos,o=>o.MapFrom(src=>src.productoCompras.Select(p=>p.Producto)));
 
             CreateMap<ProductosCaducadosxFecha, ProductosCaducadosxFechaDto>().ReverseMap();
+            CreateMap<TotalProductosxProveedor, TotalProductosxProveedorDto>().ReverseMap();
+            CreateMap<Paciente, PacienteDto>().ReverseMap();
+            CreateMap<TotalVentasxRango, TotalVentasxRangoDto>().ReverseMap();
+            CreateMap<GananciaTotalxProveedor, GananciaTotalxProveedorDto>().ReverseMap();
+            CreateMap<PromedioProductosxVenta, PromedioProductosxVentaDto>().ReverseMap();
+            CreateMap<CantidadVentasxEmpleado, CantidadVentasxEmpleadoDto>().ReverseMap();
+
         }
     }
 }

@@ -16,14 +16,6 @@ namespace Application.Repository
         {
             _context = context;
         }
-        // public override async Task<IEnumerable<Compra>> GetAllAsync()
-        // {
-        //     return await _context.Compras
-        //     .Include(p=>p.productoCompras)
-        //     .ThenInclude(p =>p.Producto)
-        //     .ThenInclude(p=>p.ProveedorProductos)
-        //     .ThenInclude(p=>p.Proveedor).Where(p=> p.)
-        //     .ToListAsync();
-        // }
+
     }
 }

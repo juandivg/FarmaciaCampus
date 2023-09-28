@@ -167,7 +167,58 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
                 PrecioV=p.PrecioV,
                 IdTipoProductofk=p.IdTipoProductofk
 
+
             })
+        ).ToListAsync();
+    }
+
+    public async Task<TotalVentasxRango> GetMedicamentosEnRango(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var TotalRango = await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            where v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
+            select pv.Cantidad
+        ).SumAsync();
+
+        return new TotalVentasxRango
+        {
+            VentasTotales = TotalRango
+        };
+    }
+
+    public async Task<IEnumerable<Producto>> GetMedicamentosMenosVendidos(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var minimo = _context.ProductoVentas.Min(p => p.Cantidad);
+        return await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            where pv.Cantidad == minimo && v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
+            select new Producto
+            {
+                Id = p.Id,
+                NombreProducto = p.NombreProducto,
+                Stock = p.Stock,
+                PrecioV = p.PrecioV,
+                IdTipoProductofk = p.IdTipoProductofk
+            }
+        ).ToListAsync();
+    }
+
+    public async Task<IEnumerable<PromedioProductosxVenta>> GetPromedioProductosxVentas()
+    {
+        return await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            group pv by v.Id into grupo
+            select new PromedioProductosxVenta
+            {
+                Id = grupo.Key,
+                PromedioProductos = grupo.Sum(item => item.Cantidad) / grupo.Count(),
+            }
         ).ToListAsync();
     }
 }

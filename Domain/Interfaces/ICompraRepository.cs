@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 
-namespace Domain.Interfaces
+namespace Domain.Interfaces;
+public interface ICompraRepository : IGenericRepository<Compra>
 {
-    public interface ICompraRepository:IGenericRepository<Compra>
-    {
-        
-    }
+
 }
