@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -69,6 +70,23 @@ public class ProductoController : BaseApiController
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get6()
     {
         var productos = await _unitOfWork.Productos.GetProductosMasCaros();
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
+    [HttpGet("GetMedicamentosEnRango/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TotalVentasxRangoDto>> Get7(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var productos = await _unitOfWork.Productos.GetMedicamentosEnRango(fechaInicio, fechaFinal);
+        return _mapper.Map<TotalVentasxRangoDto>(productos);
+    }
+
+    [HttpGet("GetMedicamentosMenosVendidos/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get8(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var productos = await _unitOfWork.Productos.GetMedicamentosMenosVendidos(fechaInicio, fechaFinal);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 

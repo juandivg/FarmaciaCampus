@@ -33,5 +33,30 @@ public class ProveedorController : BaseApiController
         var proveedores = await _unitOfWork.Proveedores.GetCantidadVentasxProveedors();
         return _mapper.Map<List<CantidadVentasxProveedorDto>>(proveedores);
     }
+    [HttpGet("GetTotalProductosxProveedor")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<TotalProductosxProveedorDto>>> Get3()
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetTotalProductosxProveedor();
+        return _mapper.Map<List<TotalProductosxProveedorDto>>(proveedores);
+    }
+
+    [HttpGet("GetProveedoresSinVentas/{fechaVenta}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProveedorDto>>> Get4(DateTime fechaVenta)
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetProveedoresSinVentas(fechaVenta);
+        return _mapper.Map<List<ProveedorDto>>(proveedores);
+    }
+    [HttpGet("GetGananciaTotalxProveedor/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<GananciaTotalxProveedorDto>>> Get5(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetGananciaTotalxProveedor(fechaInicio, fechaFinal);
+        return _mapper.Map<List<GananciaTotalxProveedorDto>>(proveedores);
+    }
 }
 
