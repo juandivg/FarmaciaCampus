@@ -90,4 +90,23 @@ public class ProductoController : BaseApiController
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 
+
+    [HttpGet("GetPromedioProductosxVentas")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PromedioProductosxVentaDto>>> Get9()
+    {
+        var promedio = await _unitOfWork.Productos.GetPromedioProductosxVentas();
+        return _mapper.Map<List<PromedioProductosxVentaDto>>(promedio);
+    }
+    [HttpGet("GetProductosExpirados/{anio}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get10(int anio)
+    {
+        var productos = await _unitOfWork.Productos.GetProductosExpirados(anio);
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
+
+
 }

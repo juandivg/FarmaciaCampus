@@ -11,10 +11,13 @@ public interface IProductoRepository : IGenericRepository<Producto>
     Task<IEnumerable<Producto>> GetProductosStock50(int cantidad);
     Task<IEnumerable<ProveedoresxProducto>> GetProveedoresxProductos();
     Task<IEnumerable<Producto>> GetProductosxProveedor(string proveedor);
-
     Task<IEnumerable<ProductosCaducadosxFecha>> GetProductosCaducadosAntes(DateTime fechaVencimiento);
     Task<IEnumerable<Producto>> GetProductosSinVender();
     Task<IEnumerable<Producto>> GetProductosMasCaros();
+    Task<TotalVentasxRango> GetMedicamentosEnRango(DateTime fechaInicio, DateTime fechaFinal);
+    Task<IEnumerable<Producto>> GetMedicamentosMenosVendidos(DateTime fechaInicio, DateTime fechaFinal);
+    Task<IEnumerable<PromedioProductosxVenta>> GetPromedioProductosxVentas();
+    Task<IEnumerable<Producto>> GetProductosExpirados(int anio);
 
     Task<TotalVentasxRango> GetMedicamentosEnRango(DateTime fechaInicio, DateTime fechaFinal);
     Task<IEnumerable<Producto>> GetMedicamentosMenosVendidos(DateTime fechaInicio, DateTime fechaFinal);
