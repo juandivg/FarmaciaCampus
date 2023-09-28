@@ -137,37 +137,73 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
 
     public async Task<IEnumerable<Producto>> GetProductosSinVender()
     {
-    return await( 
-    from p in _context.Productos
-    join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
-    from pv in pvGroup.DefaultIfEmpty()
-    join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
-    from v in vGroup.DefaultIfEmpty()
-    where pv == null
-    select new Producto
-    {
-        Id=p.Id,
-        NombreProducto=p.NombreProducto,
-        Stock=p.Stock,
-        PrecioV=p.PrecioV,
-        IdTipoProductofk=p.IdTipoProductofk
-    }
-    ).ToListAsync();
+        return await (
+        from p in _context.Productos
+        join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
+        from pv in pvGroup.DefaultIfEmpty()
+        join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
+        from v in vGroup.DefaultIfEmpty()
+        where pv == null
+        select new Producto
+        {
+            Id = p.Id,
+            NombreProducto = p.NombreProducto,
+            Stock = p.Stock,
+            PrecioV = p.PrecioV,
+            IdTipoProductofk = p.IdTipoProductofk
+        }
+        ).ToListAsync();
     }
 
     public async Task<IEnumerable<Producto>> GetProductosMasCaros()
     {
-        var maxPrecioCompra=_context.Productos.Max(p=>p.PrecioC);
-        return await(
-            _context.Productos.Where(p=>p.PrecioC==maxPrecioCompra)
-            .Select(p=>new Producto{
-                Id=p.Id,
-                NombreProducto=p.NombreProducto,
-                Stock=p.Stock,
-                PrecioV=p.PrecioV,
-                IdTipoProductofk=p.IdTipoProductofk
+        var maxPrecioCompra = _context.Productos.Max(p => p.PrecioC);
+        return await (
+            _context.Productos.Where(p => p.PrecioC == maxPrecioCompra)
+            .Select(p => new Producto
+            {
+                Id = p.Id,
+                NombreProducto = p.NombreProducto,
+                Stock = p.Stock,
+                PrecioV = p.PrecioV,
+                IdTipoProductofk = p.IdTipoProductofk
 
             })
+        ).ToListAsync();
+    }
+
+    public async Task<TotalVentasxRango> GetMedicamentosEnRango(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var TotalRango = await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            where v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
+            select pv.Cantidad
+        ).SumAsync();
+
+        return new TotalVentasxRango
+        {
+            VentasTotales = TotalRango
+        };
+    }
+
+    public async Task<IEnumerable<Producto>> GetMedicamentosMenosVendidos(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var minimo = _context.ProductoVentas.Min(p => p.Cantidad);
+        return await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            where pv.Cantidad == minimo && v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
+            select new Producto
+            {
+                Id = p.Id,
+                NombreProducto = p.NombreProducto,
+                Stock = p.Stock,
+                PrecioV = p.PrecioV,
+                IdTipoProductofk = p.IdTipoProductofk
+            }
         ).ToListAsync();
     }
 }
