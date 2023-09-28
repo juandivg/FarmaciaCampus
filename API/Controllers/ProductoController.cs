@@ -90,6 +90,7 @@ public class ProductoController : BaseApiController
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 
+
     [HttpGet("GetPromedioProductosxVentas")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -106,5 +107,6 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetProductosExpirados(anio);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
+
 
 }
