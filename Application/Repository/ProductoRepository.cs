@@ -206,4 +206,40 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
             }
         ).ToListAsync();
     }
+
+    public async Task<IEnumerable<PromedioProductosxVenta>> GetPromedioProductosxVentas()
+    {
+        return await (
+            from p in _context.Productos
+            join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk
+            join v in _context.Ventas on pv.IdVentafk equals v.Id
+            group pv by v.Id into grupo
+            select new PromedioProductosxVenta
+            {
+                Id = grupo.Key,
+                PromedioProductos = grupo.Sum(item => item.Cantidad) / grupo.Count(),
+            }
+        ).ToListAsync();
+    }
+
+    public async Task<IEnumerable<Producto>> GetProductosExpirados(int anio)
+    {
+        DateTime fechaInicio = new DateTime(anio, 1, 1);
+        DateTime fechaFinal = new DateTime(anio, 12, 31);
+        return await (
+            from com in _context.Compras
+            join pc in _context.ProductoCompras on com.Id equals pc.IdComprafk
+            join p in _context.Productos on pc.IdProductofk equals p.Id
+            join pp in _context.ProveedorProductos on p.Id equals pp.IdProductofk
+            where pp.FechaVencimiento >= fechaInicio && pp.FechaVencimiento <= fechaFinal
+            select new Producto
+            {
+                Id = p.Id,
+                NombreProducto = p.NombreProducto,
+                Stock = p.Stock,
+                PrecioV = p.PrecioV,
+                IdTipoProductofk = p.IdTipoProductofk
+            }
+        ).ToListAsync();
+    }
 }
