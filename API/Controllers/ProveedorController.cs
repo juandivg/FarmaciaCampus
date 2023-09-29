@@ -60,5 +60,12 @@ public class ProveedorController : BaseApiController
         return _mapper.Map<List<GananciaTotalxProveedorDto>>(proveedores);
     }
 
+    [HttpGet("GetProveedoresConMasProductos/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProveedoresConMasProductosDto>>> Get6(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetProveedoresConMasProductos(fechaInicio, fechaFinal);
+        return _mapper.Map<List<ProveedoresConMasProductosDto>>(proveedores);
+    }
 }
-

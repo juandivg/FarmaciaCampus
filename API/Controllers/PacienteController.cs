@@ -25,4 +25,12 @@ public class PacienteController : BaseApiController
         var pacientes = await _unitOfWork.Pacientes.GetPacientesNoCompraron(producto);
         return _mapper.Map<List<PacienteDto>>(pacientes);
     }
+    [HttpGet("GetPacientesMasGastaron/{anio}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get2(int anio)
+    {
+        var pacientes = await _unitOfWork.Pacientes.GetPacientesMasGastaron(anio);
+        return _mapper.Map<List<PacientesMasGastaronDto>>(pacientes);
+    }
 }
