@@ -109,4 +109,36 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepos
             }
         ).ToListAsync();
     }
+
+    public async Task<IEnumerable<ProveedoresConMasProductos>> GetProveedoresConMasProductos(DateTime fechaInicio,DateTime fechaFinal)
+    {
+        var proveedoresConMasProductos = await (
+        from prov in _context.Proveedores
+        join pv in _context.ProveedorProductos on prov.Id equals pv.IdProveedorfk
+        join p in _context.Productos on pv.IdProductofk equals p.Id
+        join pc in _context.ProductoCompras on p.Id equals pc.IdProductofk
+        join c in _context.Compras on pc.IdComprafk equals c.Id
+        where c.FechaCompra >= new DateTime(2023, 1, 1) && c.FechaCompra <= new DateTime(2023, 12, 31)
+        group new { prov, pc } by prov into g
+        select new ProveedoresConMasProductos
+        {
+
+            NombreProveedor = g.Key.NombreProveedor,
+            TotalCantidad = g.Sum(x => x.pc.Cantidad)
+        }
+    ).ToListAsync();
+
+        var maxTotalCantidad = proveedoresConMasProductos.First().TotalCantidad;
+
+        var proveedoresConMasProductosFinal = proveedoresConMasProductos
+            .Where(p => p.TotalCantidad == maxTotalCantidad)
+            .Select(p => new ProveedoresConMasProductos
+            {
+                NombreProveedor = p.NombreProveedor,
+                TotalCantidad = p.TotalCantidad
+
+            }
+            ).ToList();
+        return proveedoresConMasProductosFinal;
+    }
 }

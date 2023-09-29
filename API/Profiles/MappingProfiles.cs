@@ -49,6 +49,11 @@ namespace API.Profiles
             CreateMap<GananciaTotalxProveedor, GananciaTotalxProveedorDto>().ReverseMap();
             CreateMap<PromedioProductosxVenta, PromedioProductosxVentaDto>().ReverseMap();
             CreateMap<CantidadVentasxEmpleado, CantidadVentasxEmpleadoDto>().ReverseMap();
+            CreateMap<PacientesMasGastaron, PacientesMasGastaronDto>().ReverseMap();
+            CreateMap<Empleado,EmpleadoDto>().ReverseMap();
+            CreateMap<ProveedoresConMasProductos,ProveedoresConMasProductosDto>().ReverseMap();
+
+
 
         }
     }
