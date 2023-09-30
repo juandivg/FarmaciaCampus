@@ -17,13 +17,16 @@ public class EmpleadoController : BaseApiController
         this._unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-
-    [HttpGet("GetPacientesMasGastaron/{anio}")]
+    /// <summary>
+    /// Retorna lista de empleado sin ventas en el rango de fecha especificado (Consulta 23)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetEmpleadosSinVentas/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get2(int anio)
+    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get1(DateTime fechaInicio, DateTime fechaFinal)
     {
-        var empleados = await _unitOfWork.Empleados.GetEmpleadosSinVentas(anio);
+        var empleados = await _unitOfWork.Empleados.GetEmpleadosSinVentas(fechaInicio, fechaFinal);
         return _mapper.Map<List<EmpleadoDto>>(empleados);
     }
 }

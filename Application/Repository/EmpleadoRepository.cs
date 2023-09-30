@@ -15,23 +15,22 @@ namespace Application.Repository
         private readonly FarmaciaCampusContext _context;
         public EmpleadoRepository(FarmaciaCampusContext context) : base(context)
         {
-            _context=context;
+            _context = context;
         }
+        public async Task<IEnumerable<Empleado>> GetEmpleadosSinVentas(DateTime fechaInicio, DateTime fechaFinal)
 
-        public async Task<IEnumerable<Empleado>> GetEmpleadosSinVentas(int anio)
-        
         {
-            return await(
+            return await (
                 from emp in _context.Empleados
-                where !_context.Ventas.Any(v => v.IdEmpleadofk == emp.Id && v.Fecha.Year == anio)
+                where !_context.Ventas.Any(v => v.IdEmpleadofk == emp.Id && v.Fecha >= fechaInicio && v.Fecha <= fechaFinal)
                 select new Empleado
                 {
                     Id = emp.Id,
-                    Cedula=emp.Cedula,
-                    Correo=emp.Correo,
-                    IdCargofk=emp.IdCargofk,
-                    IdDireccionEmpfk=emp.IdDireccionEmpfk,
-                    NombreEmpleado= emp.NombreEmpleado
+                    Cedula = emp.Cedula,
+                    Correo = emp.Correo,
+                    IdCargofk = emp.IdCargofk,
+                    IdDireccionEmpfk = emp.IdDireccionEmpfk,
+                    NombreEmpleado = emp.NombreEmpleado
                 }
             ).ToListAsync();
         }

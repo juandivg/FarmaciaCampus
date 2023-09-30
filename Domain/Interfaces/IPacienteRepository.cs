@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Domain.Interfaces;
 public interface IPacienteRepository : IGenericRepository<Paciente>
 {
-    Task<IEnumerable<Paciente>> GetPacientesNoCompraron(string producto);
-    Task<IEnumerable<PacientesMasGastaron>> GetPacientesMasGastaron(int anio);
+    Task<IEnumerable<Paciente>> GetPacientesCompraron(string producto);
+    Task<IEnumerable<PacientesMasGastaron>> GetPacientesMasGastaron(DateTime fechaInicio, DateTime fechaFinal);
 
 }

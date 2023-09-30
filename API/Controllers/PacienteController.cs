@@ -17,20 +17,28 @@ public class PacienteController : BaseApiController
         this._unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    [HttpGet("GetPacientesNoCompraron/{producto}")]
+    /// <summary>
+    /// Retorna una lista de pacientes que han comprado por un producto (Consulta 12)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetPacientesCompraron/{producto}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<PacienteDto>>> Get1(string producto)
     {
-        var pacientes = await _unitOfWork.Pacientes.GetPacientesNoCompraron(producto);
+        var pacientes = await _unitOfWork.Pacientes.GetPacientesCompraron(producto);
         return _mapper.Map<List<PacienteDto>>(pacientes);
     }
-    [HttpGet("GetPacientesMasGastaron/{anio}")]
+    /// <summary>
+    /// Retorna lista de de pacientes que mas han gastado dinero en rango de fecha (consulta 22)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetPacientesMasGastaron/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get2(int anio)
+    public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get2(DateTime fechaInicio, DateTime fechaFinal)
     {
-        var pacientes = await _unitOfWork.Pacientes.GetPacientesMasGastaron(anio);
+        var pacientes = await _unitOfWork.Pacientes.GetPacientesMasGastaron(fechaInicio, fechaFinal);
         return _mapper.Map<List<PacientesMasGastaronDto>>(pacientes);
     }
 }
