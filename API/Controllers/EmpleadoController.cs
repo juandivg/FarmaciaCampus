@@ -29,4 +29,16 @@ public class EmpleadoController : BaseApiController
         var empleados = await _unitOfWork.Empleados.GetEmpleadosSinVentas(fechaInicio, fechaFinal);
         return _mapper.Map<List<EmpleadoDto>>(empleados);
     }
+    /// <summary>
+    /// Retorna lista de empleado con menos ventas que la cantidad por rango de fecha (Consulta 27)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetEmpleadosConMenosVentas/{fechaInicio}&{fechaFinal}&{cantidad}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadosxMenosCantidadVentasDto>>> Get2(DateTime fechaInicio, DateTime fechaFinal, int cantidad)
+    {
+        var empleados = await _unitOfWork.Empleados.GetEmpleadosConMenosVentas(fechaInicio, fechaFinal, cantidad);
+        return _mapper.Map<List<EmpleadosxMenosCantidadVentasDto>>(empleados);
+    }
 }

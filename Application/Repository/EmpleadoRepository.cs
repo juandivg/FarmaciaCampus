@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Views;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -31,6 +32,23 @@ namespace Application.Repository
                     IdCargofk = emp.IdCargofk,
                     IdDireccionEmpfk = emp.IdDireccionEmpfk,
                     NombreEmpleado = emp.NombreEmpleado
+                }
+            ).ToListAsync();
+        }
+
+        public async Task<IEnumerable<EmpleadosxMenosCantidadVentas>> GetEmpleadosConMenosVentas(DateTime fechaInicio, DateTime fechaFinal, int cantidad)
+        {
+            return await (
+                from emp in _context.Empleados
+                join v in _context.Ventas on emp.Id equals v.IdEmpleadofk
+                where v.Fecha.Year == 2023
+                group emp by new { emp.Id, emp.NombreEmpleado } into g
+                where g.Count() < cantidad
+                select new EmpleadosxMenosCantidadVentas
+                {
+                    Id = g.Key.Id,
+                    NombreEmpleado = g.Key.NombreEmpleado,
+                    CantidadVentas = g.Count()
                 }
             ).ToListAsync();
         }

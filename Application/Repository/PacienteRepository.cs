@@ -62,5 +62,45 @@ namespace Application.Repository
                 return new List<PacientesMasGastaron>();
             }
         }
+        public async Task<IEnumerable<Paciente>> GetPacientesxProducto(DateTime fechaInicio, DateTime fechaFinal, string producto)
+        {
+            return await (
+                from pac in _context.Pacientes
+                join v in _context.Ventas on pac.Id equals v.IdPacientefk
+                join pv in _context.ProductoVentas on v.Id equals pv.IdVentafk
+                join p in _context.Productos on pv.IdProductofk equals p.Id
+                where p.NombreProducto == producto &&
+                      v.Fecha >= fechaInicio &&
+                      v.Fecha <= fechaFinal
+                select new Paciente
+                {
+                    Id = pac.Id,
+                    NombrePaciente = pac.NombrePaciente,
+                    cedula = pac.cedula,
+                    Correo = pac.Correo,
+                    IdDireccionPac = pac.IdDireccionPac
+                }
+            ).ToListAsync();
+        }
+        public async Task<IEnumerable<Paciente>> GetPacientesNoCompraron(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            return await (
+                from paciente in _context.Pacientes
+                where !(
+                    from venta in _context.Ventas
+                    join productoVenta in _context.ProductoVentas on venta.Id equals productoVenta.IdVentafk
+                    where venta.Fecha.Year == 2023 && venta.IdPacientefk == paciente.Id
+                    select venta.Id
+                ).Any()
+                select new Paciente
+                {
+                    Id = paciente.Id,
+                    NombrePaciente = paciente.NombrePaciente,
+                    cedula = paciente.cedula,
+                    Correo = paciente.Correo,
+                    IdDireccionPac = paciente.IdDireccionPac
+                }
+            ).ToListAsync();
+        }
     }
 }

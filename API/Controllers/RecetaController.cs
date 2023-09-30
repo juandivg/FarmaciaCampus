@@ -18,6 +18,10 @@ namespace API.Controllers
             this._unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        /// <summary>
+        /// Retorna lista de recetas emitidas despues de la fecha (consulta 4)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetRecetasFecha/{fecha}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
