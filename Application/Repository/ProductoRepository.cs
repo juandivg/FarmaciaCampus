@@ -191,10 +191,8 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
             }
         ).ToListAsync();
     }
-    public async Task<IEnumerable<Producto>> GetProductosExpirados(int anio)
+    public async Task<IEnumerable<Producto>> GetProductosExpirados(DateTime fechaInicio, DateTime fechaFinal)
     {
-        DateTime fechaInicio = new DateTime(anio, 1, 1);
-        DateTime fechaFinal = new DateTime(anio, 12, 31);
         return await (
             from com in _context.Compras
             join pc in _context.ProductoCompras on com.Id equals pc.IdComprafk
