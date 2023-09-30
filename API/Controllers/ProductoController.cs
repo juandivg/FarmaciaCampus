@@ -18,6 +18,10 @@ public class ProductoController : BaseApiController
         this._unitOfWork = unitOfWork;
         _mapper = mapper;
     }
+    /// <summary>
+    /// Retorna lista de productos con menos de la cantidad ingresada (Consulta 1)
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("GetProductosStock/{cantidad}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -26,6 +30,10 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetProductosStock50(cantidad);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
+    /// <summary>
+    /// Retorna lista de proveedores con sus productos (consulta 2)
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("GetProveedoresxProductos")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,11 +42,10 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetProveedoresxProductos();
         return _mapper.Map<List<ProveedoresxProductoDto>>(productos);
     }
-    //     public async  Task<ActionResult<IEnumerable<ProductoDto>>> Get()
-    // {
-    //     var paises = await _unitOfWork.Productos.GetAllAsync();
-    //     return _mapper.Map<List<ProductoDto>>(paises);
-    // }
+    /// <summary>
+    /// Retorna lista de medicamentos al proveedor que se le pase (consulta 3)
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("GetProductosxProveedor/{nombre}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
