@@ -17,13 +17,8 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
     {
         _context = context;
     }
-    // public override async Task<IEnumerable<Producto>> GetAllAsync()
-    // {
-    //     return await _context.Productos
-    //         .Include(p=>p.ProveedorProductos.Select(p=>p.))
-    //         .ThenInclude(p=>p.Proveedor)
-    //         .ToListAsync();
-    // }
+
+
     public async Task<IEnumerable<Producto>> GetProductosStock50(int cantidad)
     {
         return await _context.Productos
@@ -31,32 +26,6 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
         .ToListAsync();
 
     }
-
-    //public async Task<IEnumerable<ProveedoresxProducto>> GetProveedoresxProductos()
-    //{
-    //  return await _context.Productos
-    //  .GroupJoin(
-    //   _context.ProveedorProductos,
-    //   producto => producto.Id,
-    //   pp => pp.IdProductofk,
-    //  (producto, pp) => new ProveedoresxProducto
-    //   {
-    //       Id = producto.Id,
-    //       NombreProducto = producto.NombreProducto,
-    //       Proveedores = pp.Join(
-    //          _context.Proveedores,
-    //          pp => pp.IdProveedorfk,
-    //          proveedor => proveedor.Id,
-    //          (pp, proveedor) => new Proveedor
-    //          {
-    //              Id = proveedor.Id,
-    //              NombreProveedor = proveedor.NombreProveedor,
-    //               Correo = proveedor.Correo
-    //          }
-    //      ).ToList()
-    //  }).ToListAsync();
-
-    //}
 
     public async Task<IEnumerable<Producto>> GetProductosxProveedor(string proveedor)
     {
@@ -137,35 +106,36 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
 
     public async Task<IEnumerable<Producto>> GetProductosSinVender()
     {
-    return await( 
-    from p in _context.Productos
-    join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
-    from pv in pvGroup.DefaultIfEmpty()
-    join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
-    from v in vGroup.DefaultIfEmpty()
-    where pv == null
-    select new Producto
-    {
-        Id=p.Id,
-        NombreProducto=p.NombreProducto,
-        Stock=p.Stock,
-        PrecioV=p.PrecioV,
-        IdTipoProductofk=p.IdTipoProductofk
-    }
-    ).ToListAsync();
+        return await (
+        from p in _context.Productos
+        join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
+        from pv in pvGroup.DefaultIfEmpty()
+        join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
+        from v in vGroup.DefaultIfEmpty()
+        where pv == null
+        select new Producto
+        {
+            Id = p.Id,
+            NombreProducto = p.NombreProducto,
+            Stock = p.Stock,
+            PrecioV = p.PrecioV,
+            IdTipoProductofk = p.IdTipoProductofk
+        }
+        ).ToListAsync();
     }
 
     public async Task<IEnumerable<Producto>> GetProductosMasCaros()
     {
-        var maxPrecioCompra=_context.Productos.Max(p=>p.PrecioC);
-        return await(
-            _context.Productos.Where(p=>p.PrecioC==maxPrecioCompra)
-            .Select(p=>new Producto{
-                Id=p.Id,
-                NombreProducto=p.NombreProducto,
-                Stock=p.Stock,
-                PrecioV=p.PrecioV,
-                IdTipoProductofk=p.IdTipoProductofk
+        var maxPrecioCompra = _context.Productos.Max(p => p.PrecioC);
+        return await (
+            _context.Productos.Where(p => p.PrecioC == maxPrecioCompra)
+            .Select(p => new Producto
+            {
+                Id = p.Id,
+                NombreProducto = p.NombreProducto,
+                Stock = p.Stock,
+                PrecioV = p.PrecioV,
+                IdTipoProductofk = p.IdTipoProductofk
 
 
             })
@@ -221,10 +191,8 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
             }
         ).ToListAsync();
     }
-    public async Task<IEnumerable<Producto>> GetProductosExpirados(int anio)
+    public async Task<IEnumerable<Producto>> GetProductosExpirados(DateTime fechaInicio, DateTime fechaFinal)
     {
-        DateTime fechaInicio = new DateTime(anio, 1, 1);
-        DateTime fechaFinal = new DateTime(anio, 12, 31);
         return await (
             from com in _context.Compras
             join pc in _context.ProductoCompras on com.Id equals pc.IdComprafk
@@ -240,5 +208,28 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
                 IdTipoProductofk = p.IdTipoProductofk
             }
         ).ToListAsync();
+    }
+    public async Task<IEnumerable<Producto>> GetProductosSinVenderFecha(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        return await (
+        from p in _context.Productos
+        join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
+        from pv in pvGroup.DefaultIfEmpty()
+        join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
+        from v in vGroup.DefaultIfEmpty()
+        where pv == null && v.Fecha>=fechaInicio && v.Fecha<=fechaFinal
+        select new Producto
+        {
+            Id = p.Id,
+            NombreProducto = p.NombreProducto,
+            Stock = p.Stock,
+            PrecioV = p.PrecioV,
+            IdTipoProductofk = p.IdTipoProductofk
+        }
+        ).ToListAsync();
+    }
+    public async Task <IEnumerable<Producto>> GetProductosPrecioStock(int precio, int stock)
+    {
+        return await _context.Productos.Where(p=>p.PrecioV>precio && p.Stock<stock).ToListAsync();
     }
 }

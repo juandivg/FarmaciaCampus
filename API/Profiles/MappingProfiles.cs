@@ -50,11 +50,11 @@ namespace API.Profiles
             CreateMap<PromedioProductosxVenta, PromedioProductosxVentaDto>().ReverseMap();
             CreateMap<CantidadVentasxEmpleado, CantidadVentasxEmpleadoDto>().ReverseMap();
             CreateMap<PacientesMasGastaron, PacientesMasGastaronDto>().ReverseMap();
-            CreateMap<Empleado,EmpleadoDto>().ReverseMap();
-            CreateMap<ProveedoresConMasProductos,ProveedoresConMasProductosDto>().ReverseMap();
-
-
-
+            CreateMap<Empleado, EmpleadoDto>().ReverseMap();
+            CreateMap<ProveedoresConMasProductos, ProveedoresConMasProductosDto>().ReverseMap();
+            CreateMap<TotalMedicamentosAlMes, TotalMedicamentosAlMesDto>().ReverseMap();
+            CreateMap<EmpleadosxMenosCantidadVentas, EmpleadosxMenosCantidadVentasDto>().ReverseMap();
+            CreateMap<TotalProveedoresSuministraron, TotalProveedoresSuministraronDto>().ReverseMap();
         }
     }
 }

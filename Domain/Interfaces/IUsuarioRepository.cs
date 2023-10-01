@@ -7,5 +7,6 @@ using Domain.Entities;
 namespace Domain.Interfaces;
     public interface IUsuarioRepository:IGenericRepository<Usuario>
     {
-        
+        Task<Usuario> GetByUsername(string username);
+        Task<Usuario> GetByRefreshToken(string username);
     }

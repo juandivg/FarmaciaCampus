@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace API.Dtos;
 public class PacienteDto
 {
+    public int Id { get; set; }
     public string NombrePaciente { get; set; }
     public string cedula { get; set; }
     public string Correo { get; set; }
