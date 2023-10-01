@@ -101,8 +101,6 @@ namespace Application.Repository
                     IdDireccionPac = paciente.IdDireccionPac
                 }
             ).ToListAsync();
-<<<<<<< HEAD
-=======
         }
         public async Task<IEnumerable<PacientesMasGastaron>> GetTotalGastadoPaciente(DateTime  fechaInicio, DateTime fechaFinal)
         {
@@ -120,7 +118,6 @@ namespace Application.Repository
                                         TotalGastado = grupo.Sum(item => item.p.PrecioV * item.pv.Cantidad)
                                     }).ToListAsync();
                                     return resultados;
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
         }
     }
 }

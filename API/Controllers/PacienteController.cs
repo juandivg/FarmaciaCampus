@@ -39,8 +39,6 @@ public class PacienteController : BaseApiController
     public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get2(DateTime fechaInicio, DateTime fechaFinal)
     {
         var pacientes = await _unitOfWork.Pacientes.GetPacientesMasGastaron(fechaInicio, fechaFinal);
-<<<<<<< HEAD
-=======
         return _mapper.Map<List<PacientesMasGastaronDto>>(pacientes);
     }
     /// <summary>
@@ -77,7 +75,6 @@ public class PacienteController : BaseApiController
     public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get5(DateTime fechaInicio, DateTime fechaFinal)
     {
         var pacientes = await _unitOfWork.Pacientes.GetTotalGastadoPaciente(fechaInicio,fechaFinal);
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
         return _mapper.Map<List<PacientesMasGastaronDto>>(pacientes);
     }
     /// <summary>

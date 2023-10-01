@@ -13,8 +13,5 @@ public interface IPacienteRepository : IGenericRepository<Paciente>
     Task<IEnumerable<PacientesMasGastaron>> GetPacientesMasGastaron(DateTime fechaInicio, DateTime fechaFinal);
     Task<IEnumerable<Paciente>> GetPacientesxProducto(DateTime fechaInicio, DateTime fechaFinal, string producto);
     Task<IEnumerable<Paciente>> GetPacientesNoCompraron(DateTime fechaInicio, DateTime fechaFinal);
-<<<<<<< HEAD
-=======
     Task<IEnumerable<PacientesMasGastaron>> GetTotalGastadoPaciente(DateTime  fechaInicio, DateTime fechaFinal);
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
 }

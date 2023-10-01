@@ -32,7 +32,6 @@ namespace Application.Repository
                     IdCargofk = emp.IdCargofk,
                     IdDireccionEmpfk = emp.IdDireccionEmpfk,
                     NombreEmpleado = emp.NombreEmpleado
-<<<<<<< HEAD
                 }
             ).ToListAsync();
         }
@@ -50,8 +49,6 @@ namespace Application.Repository
                     Id = g.Key.Id,
                     NombreEmpleado = g.Key.NombreEmpleado,
                     CantidadVentas = g.Count()
-=======
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
                 }
             ).ToListAsync();
         }
