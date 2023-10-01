@@ -41,4 +41,16 @@ public class EmpleadoController : BaseApiController
         var empleados = await _unitOfWork.Empleados.GetEmpleadosConMenosVentas(fechaInicio, fechaFinal, cantidad);
         return _mapper.Map<List<EmpleadosxMenosCantidadVentasDto>>(empleados);
     }
+     /// <summary>
+    /// Retorna el empleado con mas productos diferentes vendidos en un año (Consulta 31)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetEmpleadoConMasProductos/{anio}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get3( int anio)
+    {
+        var empleados = await _unitOfWork.Empleados.GetEmpleadoConMasProductos(anio);
+        return _mapper.Map<List<EmpleadoDto>>(empleados);
+    }
 }

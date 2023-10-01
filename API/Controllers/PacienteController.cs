@@ -65,4 +65,16 @@ public class PacienteController : BaseApiController
         var pacientes = await _unitOfWork.Pacientes.GetPacientesNoCompraron(fechaInicio, fechaFinal);
         return _mapper.Map<List<PacienteDto>>(pacientes);
     }
+      /// <summary>
+    ///Retorna lista de pacientes con el total que han gastado (consulta 33)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetTotalGastadoPaciente/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<PacientesMasGastaronDto>>> Get5(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var pacientes = await _unitOfWork.Pacientes.GetTotalGastadoPaciente(fechaInicio,fechaFinal);
+        return _mapper.Map<List<PacientesMasGastaronDto>>(pacientes);
+    }
 }

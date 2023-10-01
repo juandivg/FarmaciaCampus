@@ -77,6 +77,7 @@ public class ProveedorController : BaseApiController
     /// Retorna lista de proveedores con mas productos suministrados por rango de fecha (consulta 24)
     /// </summary>
     /// <returns></returns>
+
     [HttpGet("GetProveedoresConMasProductos/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -108,5 +109,17 @@ public class ProveedorController : BaseApiController
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresxMenosMedicamentos(cantidad);
         return _mapper.Map<List<ProveedorDto>>(proveedores);
+    }
+     /// <summary>
+    /// Retorna lista proveedores con al manos la cantidad de productos ingresada (consulta 35)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetProveedoresxProductos/{cantidad}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProveedoresConMasProductosDto>>> Get9(int cantidad)
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetProveedoresxProductos(cantidad);
+        return _mapper.Map<List<ProveedoresConMasProductosDto>>(proveedores);
     }
 }

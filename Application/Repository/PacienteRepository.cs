@@ -102,5 +102,22 @@ namespace Application.Repository
                 }
             ).ToListAsync();
         }
+        public async Task<IEnumerable<PacientesMasGastaron>> GetTotalGastadoPaciente(DateTime  fechaInicio, DateTime fechaFinal)
+        {
+            
+            var resultados = await (from pac in _context.Pacientes
+                                    join v in _context.Ventas on pac.Id equals v.IdPacientefk
+                                    join pv in _context.ProductoVentas on v.Id equals pv.IdVentafk
+                                    join p in _context.Productos on pv.IdProductofk equals p.Id
+                                    where v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
+                                    group new { pac, p, pv } by new { pac.Id, pac.NombrePaciente, pac.cedula } into grupo
+                                    select new PacientesMasGastaron
+                                    {
+                                        NombrePaciente = grupo.Key.NombrePaciente,
+                                        cedula = grupo.Key.cedula,
+                                        TotalGastado = grupo.Sum(item => item.p.PrecioV * item.pv.Cantidad)
+                                    }).ToListAsync();
+                                    return resultados;
+        }
     }
 }

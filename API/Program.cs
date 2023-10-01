@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl
 builder.Services.AddAplicationServices();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConfigureRateLimiting();
+builder.Services.AddJwt(builder.Configuration);
 builder.Services.AddSwaggerGen(c =>
 {
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); // Use First() as a workaround

@@ -209,4 +209,27 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
             }
         ).ToListAsync();
     }
+    public async Task<IEnumerable<Producto>> GetProductosSinVenderFecha(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        return await (
+        from p in _context.Productos
+        join pv in _context.ProductoVentas on p.Id equals pv.IdProductofk into pvGroup
+        from pv in pvGroup.DefaultIfEmpty()
+        join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
+        from v in vGroup.DefaultIfEmpty()
+        where pv == null && v.Fecha>=fechaInicio && v.Fecha<=fechaFinal
+        select new Producto
+        {
+            Id = p.Id,
+            NombreProducto = p.NombreProducto,
+            Stock = p.Stock,
+            PrecioV = p.PrecioV,
+            IdTipoProductofk = p.IdTipoProductofk
+        }
+        ).ToListAsync();
+    }
+    public async Task <IEnumerable<Producto>> GetProductosPrecioStock(int precio, int stock)
+    {
+        return await _context.Productos.Where(p=>p.PrecioV>precio && p.Stock<stock).ToListAsync();
+    }
 }

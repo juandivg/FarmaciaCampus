@@ -17,4 +17,5 @@ public interface IProveedorRepository : IGenericRepository<Proveedor>
     Task<IEnumerable<ProveedoresConMasProductos>> GetProveedoresConMasProductos(DateTime fechaInicio, DateTime fechaFinal);
     Task<TotalProveedoresSuministraron> GetTotalProveedoresSuministraron(DateTime fechaInicio, DateTime fechaFinal);
     Task<IEnumerable<Proveedor>> GetProveedoresxMenosMedicamentos(int cantidad);
+    Task<IEnumerable<ProveedoresConMasProductos>> GetProveedoresxProductos(int cantidad);
 }
