@@ -137,6 +137,33 @@ public class ProductoController : BaseApiController
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get10(DateTime fechaInicio, DateTime fechaFinal)
     {
         var productos = await _unitOfWork.Productos.GetProductosExpirados(fechaInicio, fechaFinal);
+<<<<<<< HEAD
+=======
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
+        /// <summary>
+    /// Retorna lista de productos que no han sido vendidos en el rango de fecha (consulta 34)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetProductosSinVenderFecha/{fechaInicio}&{fechaFinal}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get11(DateTime fechaInicio, DateTime fechaFinal)
+    {
+        var productos = await _unitOfWork.Productos.GetProductosSinVenderFecha(fechaInicio,fechaFinal);
+        return _mapper.Map<List<ProductoDto>>(productos);
+    }
+     /// <summary>
+    /// Retorna lista de productos con precio mayor y stock menor a los parametros (consulta 38)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetProductosPrecioStock/{precio}&{stock}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<ProductoDto>>> Get12(int precio, int stock)
+    {
+        var productos = await _unitOfWork.Productos.GetProductosPrecioStock(precio,stock);
+>>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 

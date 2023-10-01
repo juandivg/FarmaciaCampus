@@ -32,6 +32,26 @@ namespace Application.Repository
                     IdCargofk = emp.IdCargofk,
                     IdDireccionEmpfk = emp.IdDireccionEmpfk,
                     NombreEmpleado = emp.NombreEmpleado
+<<<<<<< HEAD
+                }
+            ).ToListAsync();
+        }
+
+        public async Task<IEnumerable<EmpleadosxMenosCantidadVentas>> GetEmpleadosConMenosVentas(DateTime fechaInicio, DateTime fechaFinal, int cantidad)
+        {
+            return await (
+                from emp in _context.Empleados
+                join v in _context.Ventas on emp.Id equals v.IdEmpleadofk
+                where v.Fecha.Year == 2023
+                group emp by new { emp.Id, emp.NombreEmpleado } into g
+                where g.Count() < cantidad
+                select new EmpleadosxMenosCantidadVentas
+                {
+                    Id = g.Key.Id,
+                    NombreEmpleado = g.Key.NombreEmpleado,
+                    CantidadVentas = g.Count()
+=======
+>>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
                 }
             ).ToListAsync();
         }
@@ -51,6 +71,26 @@ namespace Application.Repository
                     CantidadVentas = g.Count()
                 }
             ).ToListAsync();
+        }
+        public async Task<IEnumerable<Empleado>> GetEmpleadoConMasProductos(int anio)
+        {
+            return await(
+                from emp in _context.Empleados
+            join v in _context.Ventas on emp.Id equals v.IdEmpleadofk
+            join pv in _context.ProductoVentas on v.Id equals pv.IdVentafk
+            join p in _context.Productos on pv.IdProductofk equals p.Id
+            where v.Fecha.Year == anio
+            group p by emp into g
+            orderby g.Select(p => p.Id).Distinct().Count() descending
+            select new Empleado{
+                Id=g.Key.Id,
+                NombreEmpleado=g.Key.NombreEmpleado,
+                Cedula=g.Key.Cedula,
+                Correo=g.Key.Correo,
+                IdCargofk=g.Key.IdCargofk,
+                IdDireccionEmpfk=g.Key.IdDireccionEmpfk
+            }
+            ).Take(1).ToListAsync();
         }
     }
 }
