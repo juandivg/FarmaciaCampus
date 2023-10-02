@@ -194,4 +194,16 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepos
         }).ToList();
         return proveedores;
     }
+    public override async Task<IEnumerable<Proveedor>> GetAllAsync()
+    {
+        return await _context.Proveedores
+                        .Include(p => p.DireccionPro)
+                        .ToListAsync();
+    }
+    public override async Task<Proveedor> GetByIdAsync(int id)
+    {
+        return await _context.Proveedores
+                        .Include(p => p.DireccionPro)
+                        .FirstOrDefaultAsync(p => p.Id == id);
+    }
 }

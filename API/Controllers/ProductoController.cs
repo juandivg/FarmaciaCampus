@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Views;
 using Microsoft.AspNetCore.Authorization;
@@ -176,5 +177,88 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetProductosPrecioStock(precio, stock);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
-
+    /// <summary>
+    ///Retorna lista de todos los Productos
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Employee,Doctor,Administrator")]
+    public async Task<ActionResult<IEnumerable<ProductoFullDto>>> Get13()
+    {
+        var productos = await _unitOfWork.Productos.GetAllAsync();
+        return _mapper.Map<List<ProductoFullDto>>(productos);
+    }
+    /// <summary>
+    ///Retorna el producto por ID 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Employee,Doctor,Administrator")]
+    public async Task<ActionResult<ProductoFullDto>> Get14(int id)
+    {
+        var producto = await _unitOfWork.Productos.GetByIdAsync(id);
+        return _mapper.Map<ProductoFullDto>(producto);
+    }
+    /// <summary>
+    ///Agregar Producto
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Producto>> Post(ProductoFullDto productoDto)
+    {
+        var producto = _mapper.Map<Producto>(productoDto);
+        this._unitOfWork.Productos.Add(producto);
+        await _unitOfWork.SaveAsync();
+        if (producto == null)
+        {
+            return BadRequest();
+        }
+        productoDto.Id = producto.Id;
+        return CreatedAtAction(nameof(Post), new { id = productoDto.Id }, productoDto);
+    }
+    /// <summary>
+    /// Modificar la informacion de un producto, el id debe ser preciso
+    /// </summary>
+    /// <returns></returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Producto>> Put(int id, [FromBody] ProductoFullDto productoDto)
+    {
+        var producto = _mapper.Map<Producto>(productoDto);
+        if (producto == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Productos.Update(producto);
+        await _unitOfWork.SaveAsync();
+        return producto;
+    }
+    /// <summary>
+    /// Eliminar una producto por ID
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var producto = await _unitOfWork.Productos.GetByIdAsync(id);
+        if (producto == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Productos.Remove(producto);
+        await _unitOfWork.SaveAsync();
+        return NoContent();
+    }
 }
