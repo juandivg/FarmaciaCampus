@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
-    public class UsuarioController:BaseApiController
-    {
+public class UsuarioController : BaseApiController
+{
     private readonly IUserService _userService;
 
     public UsuarioController(IUserService userService)
@@ -16,6 +17,7 @@ namespace API.Controllers;
         _userService = userService;
     }
     [HttpPost("register")]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult> RegisterAsync(RegisterDto model)
     {
         var result = await _userService.RegisterAsync(model);
@@ -31,6 +33,7 @@ namespace API.Controllers;
     }
 
     [HttpPost("addrole")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> AddRoleAsync(AddRolDto model)
     {
         var result = await _userService.AddRolAsync(model);
@@ -57,5 +60,5 @@ namespace API.Controllers;
         };
         Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
     }
-        
-    }
+
+}

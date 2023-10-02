@@ -172,24 +172,24 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepos
     }
     public async Task<IEnumerable<ProveedoresConMasProductos>> GetProveedoresxProductos(int cantidad)
     {
-        
-            var proveedoresCantidad=await(from prov in _context.Proveedores 
-            join pp in _context.ProveedorProductos on prov.Id equals pp.IdProveedorfk
-            join p in _context.Productos on pp.IdProductofk equals p.Id
-            group p by prov into g
-            // let cantidadProductos = g.Select(p => p.Id).Distinct().Count()
-            //where cantidadProductos>=cantidad
-            select new  ProveedoresConMasProductos
-            {
-                NombreProveedor=g.Key.NombreProveedor,
-                TotalCantidad=g.Count()
-            }
-        ).ToListAsync();
-        var proveedores=proveedoresCantidad.Where(pc=>pc.TotalCantidad>=cantidad)
-        .Select(p=> new ProveedoresConMasProductos
+
+        var proveedoresCantidad = await (from prov in _context.Proveedores
+                                         join pp in _context.ProveedorProductos on prov.Id equals pp.IdProveedorfk
+                                         join p in _context.Productos on pp.IdProductofk equals p.Id
+                                         group p by prov into g
+                                         // let cantidadProductos = g.Select(p => p.Id).Distinct().Count()
+                                         //where cantidadProductos>=cantidad
+                                         select new ProveedoresConMasProductos
+                                         {
+                                             NombreProveedor = g.Key.NombreProveedor,
+                                             TotalCantidad = g.Count()
+                                         }
+    ).ToListAsync();
+        var proveedores = proveedoresCantidad.Where(pc => pc.TotalCantidad >= cantidad)
+        .Select(p => new ProveedoresConMasProductos
         {
-            NombreProveedor=p.NombreProveedor,
-            TotalCantidad=p.TotalCantidad
+            NombreProveedor = p.NombreProveedor,
+            TotalCantidad = p.TotalCantidad
 
         }).ToList();
         return proveedores;

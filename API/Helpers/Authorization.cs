@@ -9,10 +9,10 @@ namespace API.Helpers
     {
         public enum Roles
         {
-            Administrador,
-            Manager,
+            Administrator,
+            Doctor,
             Employee
         }
-        public const Roles rol_default=Roles.Employee;
+        public const Roles rol_default = Roles.Employee;
     }
 }

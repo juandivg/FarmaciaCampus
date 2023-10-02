@@ -102,9 +102,9 @@ namespace Application.Repository
                 }
             ).ToListAsync();
         }
-        public async Task<IEnumerable<PacientesMasGastaron>> GetTotalGastadoPaciente(DateTime  fechaInicio, DateTime fechaFinal)
+        public async Task<IEnumerable<PacientesMasGastaron>> GetTotalGastadoPaciente(DateTime fechaInicio, DateTime fechaFinal)
         {
-            
+
             var resultados = await (from pac in _context.Pacientes
                                     join v in _context.Ventas on pac.Id equals v.IdPacientefk
                                     join pv in _context.ProductoVentas on v.Id equals pv.IdVentafk
@@ -117,7 +117,20 @@ namespace Application.Repository
                                         cedula = grupo.Key.cedula,
                                         TotalGastado = grupo.Sum(item => item.p.PrecioV * item.pv.Cantidad)
                                     }).ToListAsync();
-                                    return resultados;
+            return resultados;
+        }
+
+        public override async Task<IEnumerable<Paciente>> GetAllAsync()
+        {
+            return await _context.Pacientes
+                            .Include(p => p.DireccionPaciente)
+                            .ToListAsync();
+        }
+        public override async Task<Paciente> GetByIdAsync(int id)
+        {
+            return await _context.Pacientes
+                            .Include(p => p.DireccionPaciente)
+                            .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

@@ -6,7 +6,6 @@ using Domain.Entities;
 using Domain.Views;
 
 namespace Domain.Interfaces;
-
 public interface IEmpleadoRepository : IGenericRepository<Empleado>
 {
     Task<IEnumerable<Empleado>> GetEmpleadosSinVentas(DateTime fechaInicio, DateTime fechaFinal);

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Domain.Entities;
 
 namespace Domain.Interfaces;
-    public interface IGenericRepository<T> where T : BaseEntity
-    {
-        
+public interface IGenericRepository<T> where T : BaseEntity
+{
+
     Task<T> GetByIdAsync(string id);
     Task<IEnumerable<T>> GetAllAsync();
     IEnumerable<T> Find(Expression<Func<T, bool>> expression);
@@ -17,4 +17,5 @@ namespace Domain.Interfaces;
     void Remove(T entity);
     void RemoveRange(IEnumerable<T> entities);
     void Update(T entity);
-    }
+    Task<T> GetByIdAsync(int id);
+}

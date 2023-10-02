@@ -6,6 +6,7 @@ using API.Dtos;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Views;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -25,6 +26,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosStock/{cantidad}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get1(int cantidad)
     {
         var productos = await _unitOfWork.Productos.GetProductosStock50(cantidad);
@@ -37,6 +39,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProveedoresxProductos")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedoresxProductoDto>>> Get2()
     {
         var productos = await _unitOfWork.Productos.GetProveedoresxProductos();
@@ -49,6 +52,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosxProveedor/{nombre}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get3(string nombre)
     {
         var productos = await _unitOfWork.Productos.GetProductosxProveedor(nombre);
@@ -61,6 +65,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosCaducadosAntes/{fechaVencimiento}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductosCaducadosxFechaDto>>> Get4(DateTime fechaVencimiento)
     {
         var productos = await _unitOfWork.Productos.GetProductosCaducadosAntes(fechaVencimiento);
@@ -73,6 +78,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosSinVender")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get5()
     {
         var productos = await _unitOfWork.Productos.GetProductosSinVender();
@@ -85,18 +91,20 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosMasCaros")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get6()
     {
         var productos = await _unitOfWork.Productos.GetProductosMasCaros();
         return _mapper.Map<List<ProductoDto>>(productos);
     }
     /// <summary>
-    /// Retorna lista de productos vendidos en el rango de fecha (consulta 14)
+    /// Retorna lista de productos vendidos en el rango de fecha (consulta 14,36)
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetMedicamentosEnRango/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<TotalVentasxRangoDto>> Get7(DateTime fechaInicio, DateTime fechaFinal)
     {
         var productos = await _unitOfWork.Productos.GetMedicamentosEnRango(fechaInicio, fechaFinal);
@@ -109,6 +117,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetMedicamentosMenosVendidos/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get8(DateTime fechaInicio, DateTime fechaFinal)
     {
         var productos = await _unitOfWork.Productos.GetMedicamentosMenosVendidos(fechaInicio, fechaFinal);
@@ -122,6 +131,7 @@ public class ProductoController : BaseApiController
     [HttpGet("GetPromedioProductosxVentas")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<PromedioProductosxVentaDto>>> Get9()
     {
         var promedio = await _unitOfWork.Productos.GetPromedioProductosxVentas();
@@ -134,33 +144,36 @@ public class ProductoController : BaseApiController
     [HttpGet("GetProductosExpirados/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get10(DateTime fechaInicio, DateTime fechaFinal)
     {
         var productos = await _unitOfWork.Productos.GetProductosExpirados(fechaInicio, fechaFinal);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
-        /// <summary>
+    /// <summary>
     /// Retorna lista de productos que no han sido vendidos en el rango de fecha (consulta 34)
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetProductosSinVenderFecha/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get11(DateTime fechaInicio, DateTime fechaFinal)
     {
-        var productos = await _unitOfWork.Productos.GetProductosSinVenderFecha(fechaInicio,fechaFinal);
+        var productos = await _unitOfWork.Productos.GetProductosSinVenderFecha(fechaInicio, fechaFinal);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
-     /// <summary>
+    /// <summary>
     /// Retorna lista de productos con precio mayor y stock menor a los parametros (consulta 38)
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetProductosPrecioStock/{precio}&{stock}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> Get12(int precio, int stock)
     {
-        var productos = await _unitOfWork.Productos.GetProductosPrecioStock(precio,stock);
+        var productos = await _unitOfWork.Productos.GetProductosPrecioStock(precio, stock);
         return _mapper.Map<List<ProductoDto>>(productos);
     }
 

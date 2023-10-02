@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -24,6 +25,7 @@ public class VentaController : BaseApiController
     [HttpGet("GetVentasxMedicament/{medicamento}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<VentasTotalesxProductoDto>> Get1(string medicamento)
     {
         var productos = await _unitOfWork.Ventas.GetVentasxMedicamento(medicamento);
@@ -36,6 +38,7 @@ public class VentaController : BaseApiController
     [HttpGet("GetTotalDineroVentas")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<TotalDineroVentasDto>> Get2()
     {
         var total = await _unitOfWork.Ventas.GetTotalDineroVentas();
@@ -49,6 +52,7 @@ public class VentaController : BaseApiController
     [HttpGet("GetCantidadVentasxEmpleado/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<CantidadVentasxEmpleadoDto>>> Get3(DateTime fechaInicio, DateTime fechaFinal)
     {
         var cantidad = await _unitOfWork.Ventas.GetCantidadVentasxEmpleado(fechaInicio, fechaFinal);
@@ -61,21 +65,36 @@ public class VentaController : BaseApiController
     [HttpGet("GetCantidadVentasxEmpleadoNumero/{cantidad}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<CantidadVentasxEmpleadoDto>>> Get4(int cantidad)
     {
         var empleado = await _unitOfWork.Ventas.GetCantidadVentasxEmpleadoNumero(cantidad);
         return _mapper.Map<List<CantidadVentasxEmpleadoDto>>(empleado);
     }
     /// <summary>
-    /// Retorna lista de medicamentos por mes al año especificado (consulta 26)
+    /// Retorna lista con la cantidad de medicamentos por mes al año especificado (consulta 26)
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetTotalMedicamentosAlMes/{anio}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<TotalMedicamentosAlMesDto>>> Get5(int anio)
     {
         var productos = await _unitOfWork.Ventas.GetTotalMedicamentosAlMes(anio);
         return _mapper.Map<List<TotalMedicamentosAlMesDto>>(productos);
+    }
+    /// <summary>
+    /// Retorna lista de medicamentos por mes al año especificado (consulta 31)
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetMedicamentosAlMes/{anio}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<IEnumerable<MedicamentosAlMesDto>>> Get6(int anio)
+    {
+        var productos = await _unitOfWork.Ventas.GetMedicamentosAlMes(anio);
+        return _mapper.Map<List<MedicamentosAlMesDto>>(productos);
     }
 }
