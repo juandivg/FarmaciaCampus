@@ -57,6 +57,9 @@ namespace API.Profiles
             CreateMap<TotalProveedoresSuministraron, TotalProveedoresSuministraronDto>().ReverseMap();
             CreateMap<MedicamentosAlMes, MedicamentosAlMesDto>().ReverseMap();
             CreateMap<Proveedor, ProveedorFullDto>().ReverseMap();
+            CreateMap<Producto, ProductoFullDto>().ReverseMap();
+            CreateMap<Venta, VentaDto>().ReverseMap();
+            CreateMap<Receta, RecetaFullDto>().ReverseMap();
         }
     }
 }

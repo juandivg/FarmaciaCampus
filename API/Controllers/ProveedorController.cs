@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -130,5 +131,89 @@ public class ProveedorController : BaseApiController
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresxProductos(cantidad);
         return _mapper.Map<List<ProveedoresConMasProductosDto>>(proveedores);
+    }
+    /// <summary>
+    ///Retorna lista de todos los proveedores
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<IEnumerable<ProveedorFullDto>>> Get10()
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetAllAsync();
+        return _mapper.Map<List<ProveedorFullDto>>(proveedores);
+    }
+    /// <summary>
+    ///Retorna el proveedor por ID 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<ProveedorFullDto>> Get11(int id)
+    {
+        var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(id);
+        return _mapper.Map<ProveedorFullDto>(proveedor);
+    }
+    /// <summary>
+    ///Agregar Proveedor
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Proveedor>> Post(ProveedorFullDto proveedorDto)
+    {
+        var proveedor = _mapper.Map<Proveedor>(proveedorDto);
+        this._unitOfWork.Proveedores.Add(proveedor);
+        await _unitOfWork.SaveAsync();
+        if (proveedor == null)
+        {
+            return BadRequest();
+        }
+        proveedorDto.Id = proveedor.Id;
+        return CreatedAtAction(nameof(Post), new { id = proveedorDto.Id }, proveedorDto);
+    }
+    /// <summary>
+    /// Modificar la informacion de un proveedor, el id debe ser preciso
+    /// </summary>
+    /// <returns></returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Proveedor>> Put(int id, [FromBody] ProveedorFullDto proveedorDto)
+    {
+        var proveedor = _mapper.Map<Proveedor>(proveedorDto);
+        if (proveedor == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Proveedores.Update(proveedor);
+        await _unitOfWork.SaveAsync();
+        return proveedor;
+    }
+    /// <summary>
+    /// Eliminar una paciente por ID
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var proveedor = await _unitOfWork.Proveedores.GetByIdAsync(id);
+        if (proveedor == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Proveedores.Remove(proveedor);
+        await _unitOfWork.SaveAsync();
+        return NoContent();
     }
 }

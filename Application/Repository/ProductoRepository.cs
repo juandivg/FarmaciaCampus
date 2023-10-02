@@ -217,7 +217,7 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
         from pv in pvGroup.DefaultIfEmpty()
         join v in _context.Ventas on pv.IdVentafk equals v.Id into vGroup
         from v in vGroup.DefaultIfEmpty()
-        where pv == null && v.Fecha>=fechaInicio && v.Fecha<=fechaFinal
+        where pv == null && v.Fecha >= fechaInicio && v.Fecha <= fechaFinal
         select new Producto
         {
             Id = p.Id,
@@ -228,8 +228,20 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
         }
         ).ToListAsync();
     }
-    public async Task <IEnumerable<Producto>> GetProductosPrecioStock(int precio, int stock)
+    public async Task<IEnumerable<Producto>> GetProductosPrecioStock(int precio, int stock)
     {
-        return await _context.Productos.Where(p=>p.PrecioV>precio && p.Stock<stock).ToListAsync();
+        return await _context.Productos.Where(p => p.PrecioV > precio && p.Stock < stock).ToListAsync();
+    }
+    public override async Task<IEnumerable<Producto>> GetAllAsync()
+    {
+        return await _context.Productos
+                        .Include(p => p.IdTipoProductofk)
+                        .ToListAsync();
+    }
+    public override async Task<Producto> GetByIdAsync(int id)
+    {
+        return await _context.Productos
+                        .Include(p => p.IdTipoProductofk)
+                        .FirstOrDefaultAsync(p => p.Id == id);
     }
 }

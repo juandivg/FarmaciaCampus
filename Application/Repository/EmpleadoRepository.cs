@@ -73,5 +73,19 @@ namespace Application.Repository
                 }
             ).Take(1).ToListAsync();
         }
+        public override async Task<IEnumerable<Empleado>> GetAllAsync()
+        {
+            return await _context.Empleados
+                            .Include(p => p.IdDireccionEmpfk)
+                            .Include(p => p.IdCargofk)
+                            .ToListAsync();
+        }
+        public override async Task<Empleado> GetByIdAsync(int id)
+        {
+            return await _context.Empleados
+                            .Include(p => p.IdDireccionEmpfk)
+                            .Include(p => p.IdCargofk)
+                            .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

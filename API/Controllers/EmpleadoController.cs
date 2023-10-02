@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,5 +57,89 @@ public class EmpleadoController : BaseApiController
     {
         var empleados = await _unitOfWork.Empleados.GetEmpleadoConMasProductos(anio);
         return _mapper.Map<List<EmpleadoDto>>(empleados);
+    }
+    /// <summary>
+    ///Retorna lista de todos los empleados
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get4()
+    {
+        var empleados = await _unitOfWork.Empleados.GetAllAsync();
+        return _mapper.Map<List<EmpleadoDto>>(empleados);
+    }
+    /// <summary>
+    ///Retorna el empleado por ID 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<EmpleadoDto>> Get5(int id)
+    {
+        var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
+        return _mapper.Map<EmpleadoDto>(empleado);
+    }
+    /// <summary>
+    ///Agregar Proveedor
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Empleado>> Post(EmpleadoDto empleadoDto)
+    {
+        var empleado = _mapper.Map<Empleado>(empleadoDto);
+        this._unitOfWork.Empleados.Add(empleado);
+        await _unitOfWork.SaveAsync();
+        if (empleado == null)
+        {
+            return BadRequest();
+        }
+        empleadoDto.Id = empleado.Id;
+        return CreatedAtAction(nameof(Post), new { id = empleadoDto.Id }, empleadoDto);
+    }
+    /// <summary>
+    /// Modificar la informacion de un proveedor, el id debe ser preciso
+    /// </summary>
+    /// <returns></returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult<Empleado>> Put(int id, [FromBody] EmpleadoDto empleadoDto)
+    {
+        var empleado = _mapper.Map<Empleado>(empleadoDto);
+        if (empleado == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Empleados.Update(empleado);
+        await _unitOfWork.SaveAsync();
+        return empleado;
+    }
+    /// <summary>
+    /// Eliminar una paciente por ID
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var empleado = await _unitOfWork.Empleados.GetByIdAsync(id);
+        if (empleado == null)
+        {
+            return NotFound();
+        }
+        _unitOfWork.Empleados.Remove(empleado);
+        await _unitOfWork.SaveAsync();
+        return NoContent();
     }
 }
