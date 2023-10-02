@@ -17,7 +17,7 @@ public class UsuarioController : BaseApiController
         _userService = userService;
     }
     [HttpPost("register")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> RegisterAsync(RegisterDto model)
     {
         var result = await _userService.RegisterAsync(model);
@@ -33,7 +33,7 @@ public class UsuarioController : BaseApiController
     }
 
     [HttpPost("addrole")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> AddRoleAsync(AddRolDto model)
     {
         var result = await _userService.AddRolAsync(model);

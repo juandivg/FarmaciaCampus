@@ -206,4 +206,20 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepos
                         .Include(p => p.DireccionPro)
                         .FirstOrDefaultAsync(p => p.Id == id);
     }
+    public override async Task<(int totalRegistros, IEnumerable<Proveedor> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Proveedores as IQueryable<Proveedor>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreProveedor.ToLower().Contains(search));
+        }
+        
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                 .Include(u => u.DireccionPro)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
 }

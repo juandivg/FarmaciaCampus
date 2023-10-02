@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
+using ApiIncidencias.Helpers;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
+[ApiVersion("1.0")]
+[ApiVersion("1.1")]
 public class ProductoController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -182,6 +185,7 @@ public class ProductoController : BaseApiController
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [MapToApiVersion("1.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Roles = "Employee,Doctor,Administrator")]
@@ -190,6 +194,17 @@ public class ProductoController : BaseApiController
         var productos = await _unitOfWork.Productos.GetAllAsync();
         return _mapper.Map<List<ProductoFullDto>>(productos);
     }
+    [HttpGet]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ProductoFullDto>>> Getpag([FromQuery] Params productoParams)
+    {
+        var pais = await _unitOfWork.Productos.GetAllAsync(productoParams.PageIndex,productoParams.PageSize,productoParams.Search);
+        var lstPaisesDto = _mapper.Map<List<ProductoFullDto>>(pais.registros);
+        return new Pager<ProductoFullDto>(lstPaisesDto,pais.totalRegistros,productoParams.PageIndex,productoParams.PageSize,productoParams.Search);
+    }
+
     /// <summary>
     ///Retorna el producto por ID 
     /// </summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
+using ApiIncidencias.Helpers;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
+[ApiVersion("1.0")]
+[ApiVersion("1.1")]
 public class ProveedorController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -137,6 +140,7 @@ public class ProveedorController : BaseApiController
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [MapToApiVersion("1.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Roles = "Administrator")]
@@ -144,6 +148,16 @@ public class ProveedorController : BaseApiController
     {
         var proveedores = await _unitOfWork.Proveedores.GetAllAsync();
         return _mapper.Map<List<ProveedorFullDto>>(proveedores);
+    }
+    [HttpGet]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<ProveedorDto>>> Getpag([FromQuery] Params proveedorParams)
+    {
+        var proveedor = await _unitOfWork.Proveedores.GetAllAsync(proveedorParams.PageIndex,proveedorParams.PageSize,proveedorParams.Search);
+        var lstProveedoresDto = _mapper.Map<List<ProveedorDto>>(proveedor.registros);
+        return new Pager<ProveedorDto>(lstProveedoresDto,proveedor.totalRegistros,proveedorParams.PageIndex,proveedorParams.PageSize,proveedorParams.Search);
     }
     /// <summary>
     ///Retorna el proveedor por ID 

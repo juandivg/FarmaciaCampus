@@ -15,6 +15,8 @@ builder.Services.AddAplicationServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureRateLimiting();
 builder.Services.AddJwt(builder.Configuration);
+builder.Services.ConfigureApiVersioning();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); // Use First() as a workaround

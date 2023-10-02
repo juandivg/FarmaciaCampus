@@ -11,6 +11,8 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions
@@ -34,6 +36,21 @@ namespace API.Extensions
             services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
             services.AddScoped<IUserService, UserService>();
         }
+            public static void ConfigureApiVersioning(this IServiceCollection services)
+    {
+        services.AddApiVersioning(options =>
+        {
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            //options.ApiVersionReader = new QueryStringApiVersionReader("ver");
+            options.ApiVersionReader = ApiVersionReader.Combine(
+                new QueryStringApiVersionReader("ver"),
+                new HeaderApiVersionReader("X-Version")
+            );
+            options.ReportApiVersions = true;
+
+        });
+    }
         public static void ConfigureRateLimiting(this IServiceCollection services)
         {
             services.AddMemoryCache();

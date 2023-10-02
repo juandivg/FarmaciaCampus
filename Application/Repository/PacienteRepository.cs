@@ -132,5 +132,21 @@ namespace Application.Repository
                             .Include(p => p.DireccionPaciente)
                             .FirstOrDefaultAsync(p => p.Id == id);
         }
+            public override async Task<(int totalRegistros, IEnumerable<Paciente> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Pacientes as IQueryable<Paciente>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombrePaciente.ToLower().Contains(search));
+        }
+        
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                 .Include(u => u.DireccionPaciente)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
     }
 }
