@@ -244,4 +244,20 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
                         .Include(p => p.TipoProducto)
                         .FirstOrDefaultAsync(p => p.Id == id);
     }
+        public override async Task<(int totalRegistros, IEnumerable<Producto> registros)> GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        var query = _context.Productos as IQueryable<Producto>;
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(p => p.NombreProducto.ToLower().Contains(search));
+        }
+        
+        var totalRegistros = await query.CountAsync();
+        var registros = await query
+                                 .Include(u => u.TipoProducto)
+                                 .Skip((pageIndex - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToListAsync();
+        return (totalRegistros, registros);
+    }
 }

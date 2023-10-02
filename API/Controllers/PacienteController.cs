@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
+using ApiIncidencias.Helpers;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
+[ApiVersion("1.0")]
+[ApiVersion("1.1")]
 public class PacienteController : BaseApiController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -96,6 +99,16 @@ public class PacienteController : BaseApiController
     {
         var pacientes = await _unitOfWork.Pacientes.GetAllAsync();
         return _mapper.Map<List<PacienteDto>>(pacientes);
+    }
+    [HttpGet]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<PacienteDto>>> Getpag([FromQuery] Params PacienteParams)
+    {
+        var Paciente = await _unitOfWork.Pacientes.GetAllAsync(PacienteParams.PageIndex,PacienteParams.PageSize,PacienteParams.Search);
+        var lstPacienteesDto = _mapper.Map<List<PacienteDto>>(Paciente.registros);
+        return new Pager<PacienteDto>(lstPacienteesDto,Paciente.totalRegistros,PacienteParams.PageIndex,PacienteParams.PageSize,PacienteParams.Search);
     }
     /// <summary>
     ///Retorna el paciente por ID 
