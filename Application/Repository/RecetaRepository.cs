@@ -25,15 +25,15 @@ namespace Application.Repository
         public override async Task<IEnumerable<Receta>> GetAllAsync()
         {
             return await _context.Recetas
-                            .Include(p => p.IdEmpleadofk)
-                            .Include(p => p.IdPacientefk)
+                            .Include(p => p.Empleado)
+                            .Include(p => p.Paciente)
                             .ToListAsync();
         }
         public override async Task<Receta> GetByIdAsync(int id)
         {
             return await _context.Recetas
-                            .Include(p => p.IdEmpleadofk)
-                            .Include(p => p.IdPacientefk)
+                            .Include(p => p.Empleado)
+                            .Include(p => p.Paciente)
                             .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

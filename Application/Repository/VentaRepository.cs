@@ -119,17 +119,17 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
     public override async Task<IEnumerable<Venta>> GetAllAsync()
     {
         return await _context.Ventas
-                        .Include(p => p.IdEmpleadofk)
-                        .Include(p => p.IdPacientefk)
-                        .Include(p => p.IdRecetafk)
+                        .Include(p => p.Empleado)
+                        .Include(p => p.Paciente)
+                        .Include(p => p.Receta)
                         .ToListAsync();
     }
     public override async Task<Venta> GetByIdAsync(int id)
     {
         return await _context.Ventas
-                        .Include(p => p.IdEmpleadofk)
-                        .Include(p => p.IdPacientefk)
-                        .Include(p => p.IdRecetafk)
+                        .Include(p => p.Empleado)
+                        .Include(p => p.Paciente)
+                        .Include(p => p.Receta)
                         .FirstOrDefaultAsync(p => p.Id == id);
     }
 

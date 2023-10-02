@@ -235,13 +235,13 @@ public class ProductoRepository : GenericRepository<Producto>, IProductoReposito
     public override async Task<IEnumerable<Producto>> GetAllAsync()
     {
         return await _context.Productos
-                        .Include(p => p.IdTipoProductofk)
+                        .Include(p => p.TipoProducto)
                         .ToListAsync();
     }
     public override async Task<Producto> GetByIdAsync(int id)
     {
         return await _context.Productos
-                        .Include(p => p.IdTipoProductofk)
+                        .Include(p => p.TipoProducto)
                         .FirstOrDefaultAsync(p => p.Id == id);
     }
 }
