@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -20,6 +21,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetProveedoresSinCompras")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedorDto>>> Get1()
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresSinCompras();
@@ -32,6 +34,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetCatidadVentasxProveedors")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<CantidadVentasxProveedorDto>>> Get2()
     {
         var proveedores = await _unitOfWork.Proveedores.GetCantidadVentasxProveedors();
@@ -44,6 +47,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetTotalProductosxProveedor")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<TotalProductosxProveedorDto>>> Get3()
     {
         var proveedores = await _unitOfWork.Proveedores.GetTotalProductosxProveedor();
@@ -56,6 +60,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetProveedoresSinVentas/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedorDto>>> Get4(DateTime fechaInicio, DateTime fechaFinal)
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresSinVentas(fechaInicio, fechaFinal);
@@ -68,6 +73,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetGananciaTotalxProveedor/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<GananciaTotalxProveedorDto>>> Get5(DateTime fechaInicio, DateTime fechaFinal)
     {
         var proveedores = await _unitOfWork.Proveedores.GetGananciaTotalxProveedor(fechaInicio, fechaFinal);
@@ -77,13 +83,10 @@ public class ProveedorController : BaseApiController
     /// Retorna lista de proveedores con mas productos suministrados por rango de fecha (consulta 24)
     /// </summary>
     /// <returns></returns>
-<<<<<<< HEAD
-=======
-
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
     [HttpGet("GetProveedoresConMasProductos/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedoresConMasProductosDto>>> Get6(DateTime fechaInicio, DateTime fechaFinal)
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresConMasProductos(fechaInicio, fechaFinal);
@@ -96,6 +99,7 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetTotalProveedoresSuministraron/{fechaInicio}&{fechaFinal}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<TotalProveedoresSuministraronDto>> Get7(DateTime fechaInicio, DateTime fechaFinal)
     {
         var cantidad = await _unitOfWork.Proveedores.GetTotalProveedoresSuministraron(fechaInicio, fechaFinal);
@@ -108,24 +112,23 @@ public class ProveedorController : BaseApiController
     [HttpGet("GetProveedoresxMenosMedicamentos/{cantidad}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedorDto>>> Get8(int cantidad)
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresxMenosMedicamentos(cantidad);
         return _mapper.Map<List<ProveedorDto>>(proveedores);
     }
-<<<<<<< HEAD
-=======
-     /// <summary>
+    /// <summary>
     /// Retorna lista proveedores con al manos la cantidad de productos ingresada (consulta 35)
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetProveedoresxProductos/{cantidad}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<IEnumerable<ProveedoresConMasProductosDto>>> Get9(int cantidad)
     {
         var proveedores = await _unitOfWork.Proveedores.GetProveedoresxProductos(cantidad);
         return _mapper.Map<List<ProveedoresConMasProductosDto>>(proveedores);
     }
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
 }

@@ -92,6 +92,30 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
             }
         ).ToListAsync();
     }
+    public async Task<IEnumerable<MedicamentosAlMes>> GetMedicamentosAlMes(int anio)
+    {
+        return await (
+    from v in _context.Ventas
+    join pv in _context.ProductoVentas on v.Id equals pv.IdVentafk
+    join p in _context.Productos on pv.IdProductofk equals p.Id
+    where v.Fecha.Year == anio
+    group new { v, pv, p } by new { Mes = v.Fecha.Month, Anio = v.Fecha.Year } into g
+    orderby g.Key.Anio, g.Key.Mes
+    select new MedicamentosAlMes
+    {
+        Mes = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Mes),
+        Productos = g.Select(x => new Producto
+        {
+            Id = x.p.Id,
+            NombreProducto = x.p.NombreProducto,
+            Stock = x.p.Stock,
+            PrecioC = x.p.PrecioC,
+            PrecioV = x.p.PrecioV,
+            IdTipoProductofk = x.p.IdTipoProductofk
+        }).ToList()
+    }
+).ToListAsync();
+    }
 
 }
 

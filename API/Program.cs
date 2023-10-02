@@ -1,5 +1,6 @@
 using System.Reflection;
 using API.Extensions;
+using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -12,11 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl
 builder.Services.AddAplicationServices();
 builder.Services.AddEndpointsApiExplorer();
-<<<<<<< HEAD
-=======
 builder.Services.ConfigureRateLimiting();
 builder.Services.AddJwt(builder.Configuration);
->>>>>>> 9208e861474e91dfd173ae3e47577a24ef0734ac
 builder.Services.AddSwaggerGen(c =>
 {
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); // Use First() as a workaround
@@ -24,6 +22,26 @@ builder.Services.AddSwaggerGen(c =>
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please insert token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {{
+        new OpenApiSecurityScheme{
+            Reference= new OpenApiReference{
+                Type = ReferenceType.SecurityScheme,
+                Id ="Bearer"
+            }
+        },
+        new string[]{}
+    }
+    });
 });
 builder.Services.ConfigureCors();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
@@ -31,12 +49,6 @@ builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
 {
     string connectionString = builder.Configuration.GetConnectionString("ConexMysql");
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-});
-
-builder.Services.AddDbContext<FarmaciaCampusContext>(options =>
-{
-    string? connectionString = builder.Configuration.GetConnectionString("ConexMysql");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
@@ -49,8 +61,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
+app.UseIpRateLimiting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

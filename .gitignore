@@ -28,10 +28,6 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-Domain/obj/
-API/obj/
-Persistence/obj/
-Application/obj/
 [Ll]og/
 [Ll]ogs/
 Persistence/Data/Migrations/

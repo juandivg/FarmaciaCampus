@@ -13,5 +13,5 @@ public interface IVentaRepository : IGenericRepository<Venta>
     Task<IEnumerable<CantidadVentasxEmpleado>> GetCantidadVentasxEmpleado(DateTime fechaInicio, DateTime fechaFinal);
     Task<IEnumerable<CantidadVentasxEmpleado>> GetCantidadVentasxEmpleadoNumero(int cantidad);
     Task<IEnumerable<TotalMedicamentosAlMes>> GetTotalMedicamentosAlMes(int anio);
-
+    Task<IEnumerable<MedicamentosAlMes>> GetMedicamentosAlMes(int anio);
 }

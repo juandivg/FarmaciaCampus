@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,6 +26,7 @@ namespace API.Controllers
         [HttpGet("GetRecetasFecha/{fecha}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<IEnumerable<RecetaDto>>> Get1(DateTime fecha)
         {
             var recetas = await _unitOfWork.Recetas.GetRecetasFecha(fecha);

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Repository;
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
     private readonly FarmaciaCampusContext _context;
 
@@ -45,7 +45,7 @@ namespace Application.Repository;
 
     public virtual async Task<T> GetByIdAsync(string id)
     {
-       return await _context.Set<T>().FindAsync(id);
+        return await _context.Set<T>().FindAsync(id);
     }
 
     public virtual void Remove(T entity)
