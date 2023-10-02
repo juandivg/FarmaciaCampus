@@ -76,15 +76,15 @@ namespace Application.Repository
         public override async Task<IEnumerable<Empleado>> GetAllAsync()
         {
             return await _context.Empleados
-                            .Include(p => p.IdDireccionEmpfk)
-                            .Include(p => p.IdCargofk)
+                            .Include(p => p.DireccionEmp)
+                            .Include(p => p.Cargo)
                             .ToListAsync();
         }
         public override async Task<Empleado> GetByIdAsync(int id)
         {
             return await _context.Empleados
-                            .Include(p => p.IdDireccionEmpfk)
-                            .Include(p => p.IdCargofk)
+                            .Include(p => p.DireccionEmp)
+                            .Include(p => p.Cargo)
                             .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
